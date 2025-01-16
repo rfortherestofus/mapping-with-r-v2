@@ -304,7 +304,9 @@ wyoming_different_projection |>
 ```
 
 
-### `geometry` Column
+### `geometry` Column {.inverse}
+
+---
 
 ```{r}
 wyoming
@@ -318,6 +320,13 @@ wyoming_coordinates <-
   as_tibble() |>
   rename(longitude = X, latitude = Y) |>
   select(longitude, latitude)
+```
+
+. . .
+
+```{r}
+#| echo: false
+options(pillar.sigfig = 7)
 ```
 
 ```{r}
