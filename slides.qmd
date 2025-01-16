@@ -1,0 +1,399 @@
+---
+title: Mapping with R
+format:
+  rfortherestofus-slides-revealjs:
+    menu: false
+    progress: false
+    slide-number: true
+    show-slide-number: print
+    center: true
+    incremental: true
+    auto-animate: true
+    slide-level: 4
+    output-location: fragment
+execute: 
+  message: false
+  warning: false
+  cache: true
+  echo: true
+title-slide-attributes:
+  data-background-image: assets/rru-hex-bg-gradient-dark.svg
+  data-background-size: cover
+---
+
+# Welcome to Course {.inverse}
+
+## Welcome to Mapping with R {.inverse}
+
+### Why making maps with R makes sense
+
+R is a complete GIS tool
+
+### Two types of data: vector and raster. We'll mostly cover vector.
+
+### Make simple maps with ggplot and mapview
+
+#### Access Data
+
+```{r}
+library(rnaturalearth)
+
+ne_countries()
+```
+
+#### Make simple map with ggplot
+
+```{r}
+library(tidyverse)
+
+ne_countries() |>
+  ggplot() +
+  geom_sf()
+```
+
+#### Make simple map with mapview
+
+```{r}
+library(mapview)
+
+ne_countries() |>
+  mapview()
+```
+
+### How course works
+
+# Geospatial Data: Vector Data
+
+## Simple Features Data {.inverse}
+
+::: {.notes}
+Talk about how it has become standard
+
+Do same thing I do in [book](https://book.rfortherestofus.com/maps.html#a-brief-primer-on-geospatial-data)
+:::
+
+### Always use sf data
+
+![](assets/always-use-sf-heiss.png)
+
+[source](https://datavizs22.classes.andrewheiss.com/slides/12-slides.pdf)
+
+### Learn More
+
+https://r-spatial.github.io/sf/articles/sf1.html
+
+### Geometry Type
+
+#### `POLYGON`
+
+```{r}
+library(sf)
+
+wyoming <-
+  read_sf("data/wyoming.geojson")
+
+wyoming
+```
+
+---
+
+```{r}
+ggplot() +
+  geom_sf(data = wyoming)
+```
+
+#### `POINT`
+
+```{r}
+wyoming_one_ev_station <-
+  read_sf("data/wyoming-one-ev-station.geojson")
+
+wyoming_one_ev_station
+```
+
+---
+
+```{r}
+ggplot() +
+  geom_sf(data = wyoming) +
+  geom_sf(data = wyoming_one_ev_station)
+```
+
+#### `LINESTRING`
+
+```{r}
+wyoming_highway_30 <-
+  read_sf("data/wyoming-highway-30.geojson")
+
+wyoming_highway_30
+```
+
+---
+
+```{r}
+ggplot() +
+  geom_sf(data = wyoming) +
+  geom_sf(data = wyoming_highway_30)
+```
+
+#### `MULTIPOLYGON`
+
+```{r}
+wyoming_counties <-
+  read_sf("data/wyoming-counties.geojson")
+
+wyoming_counties
+```
+
+---
+
+```{r}
+ggplot() +
+  geom_sf(data = wyoming_counties)
+```
+
+---
+
+```{r}
+#| echo: false
+#| eval: false
+fs::file_delete("data/rhode-island.geojson")
+
+
+read_sf("data/BND_State_1997_spf_-1467871017424358584.geojson") |>
+  summarize(geometry = st_combine(geometry)) |>
+  write_sf(
+    "data/rhode-island.geojson"
+  )
+```
+
+```{r}
+rhode_island <-
+  read_sf("data/rhode-island.geojson")
+
+rhode_island
+```
+
+---
+
+```{r}
+ggplot() +
+  geom_sf(data = rhode_island)
+```
+
+#### `MULTIPOINT`
+
+```{r}
+wyoming_all_ev_stations <-
+  read_sf("data/wyoming-all-ev-stations.geojson")
+
+wyoming_all_ev_stations
+```
+
+---
+
+```{r}
+ggplot() +
+  geom_sf(data = wyoming) +
+  geom_sf(data = wyoming_all_ev_stations)
+```
+
+#### `MULTILINESTRING`
+
+```{r}
+wyoming_roads <-
+  read_sf("data/wyoming-roads.geojson")
+
+wyoming_roads
+```
+
+---
+
+```{r}
+ggplot() +
+  geom_sf(data = wyoming) +
+  geom_sf(data = wyoming_roads)
+```
+
+### Dimensions
+
+```{r}
+wyoming
+```
+
+::: {.notes}
+Almost always XY
+
+Z is altitude
+
+M: "an M coordinate (rarely used), denoting some measure that is associated with the point, rather than with the feature as a whole (in which case it would be a feature attribute); examples could be time of measurement, or measurement error of the coordinates"
+
+https://r-spatial.github.io/sf/articles/sf1.html#dimensions
+:::
+
+### Bounding Box
+
+```{r}
+rhode_island
+```
+
+---
+
+```{r}
+#| echo: false
+rhode_island_bounding_box <-
+  rhode_island |>
+  st_bbox() |>
+  st_as_sfc() |>
+  st_sf() |>
+  mutate(id = "bbox") |>
+  select(id) |>
+  rename(geometry = st_as_sfc.st_bbox.rhode_island..)
+```  
+
+```{r}
+rhode_island_bounding_box
+```
+
+---
+
+```{r}
+ggplot() +
+  geom_sf(data = rhode_island) +
+  geom_sf(
+    data = rhode_island_bounding_box,
+    color = "red",
+    linewidth = 1,
+    fill = NA
+  )
+```
+
+### Coordinate Reference System (CRS)
+
+```{r}
+wyoming
+```
+
+---
+
+```{r}
+#| echo: false
+wyoming_different_projection <-
+  wyoming |>
+  st_transform(5070)
+```
+
+```{r}
+wyoming_different_projection
+```
+
+---
+
+```{r}
+wyoming |>
+  ggplot() +
+  geom_sf()
+```
+
+---
+
+```{r}
+wyoming_different_projection |>
+  ggplot() +
+  geom_sf()
+```
+
+
+### `geometry` Column
+
+```{r}
+wyoming
+```
+
+```{r}
+#| echo: false
+wyoming_coordinates <-
+  wyoming |>
+  st_coordinates() |>
+  as_tibble() |>
+  rename(longitude = X, latitude = Y) |>
+  select(longitude, latitude)
+```
+
+```{r}
+wyoming_coordinates
+```
+
+---
+
+```{r}
+wyoming_coordinates |>
+  ggplot(aes(
+    x = longitude,
+    y = latitude
+  )) +
+  geom_point()
+```
+
+---
+
+```{r}
+#| echo: false
+#| eval: false
+library(gganimate)
+
+wyoming_coordinates_animated <-
+  wyoming_coordinates |>
+  mutate(row_number = row_number()) |>
+  # slice(1:10) |>
+  ggplot(aes(
+    x = longitude,
+    y = latitude,
+    group = row_number
+  )) +
+  geom_point() +
+  transition_reveal(row_number)
+
+animate(
+  wyoming_coordinates_animated,
+  height = 4,
+  width = 6,
+  units = "in",
+  res = 300
+)
+
+anim_save("assets/wyoming-animated.gif")
+```
+
+![](assets/wyoming-animated.gif)
+
+
+### Your Turn {.your-turn}
+
+Provide code for user to make simple map
+
+### Learn More
+
+https://r-spatial.github.io/sf/articles/sf1.html
+
+## Accessing raw geospatial data {.inverse}
+
+### My Turn
+
+Demonstrate read_sf()
+
+Talk about shp data and show meme about shapefiles being left behind
+
+Show geojson data
+
+### Your Turn {.your-turn}
+
+Import data and examine it
+
+Have them download shp data and import it
+
+Have them download geojson and download it
+
+### Learn More
+
+https://r-spatial.github.io/sf/articles/sf2.html
