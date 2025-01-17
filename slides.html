@@ -1377,14 +1377,14 @@ Geodetic CRS:  WGS 84
 <section id="your-turn" class="title-slide slide level3 your-turn center">
 <h3>Your Turn</h3>
 <ul>
-<li class="fragment">Run the following code in order to import an <code>sf</code> object called <code>africa</code>. You’ll need to install the {sf} package if you don’t already have it installed.</li>
+<li class="fragment">Run the following code in order to import an <code>sf</code> object called <code>africa</code>.</li>
 </ul>
 <div class="fragment">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb41"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a href=""></a><span class="fu">library</span>(sf)</span>
+<div class="sourceCode cell-code" id="cb41"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a href=""></a><span class="fu">library</span>(tidyverse)</span>
 <span id="cb41-2"><a href=""></a></span>
 <span id="cb41-3"><a href=""></a>africa <span class="ot">&lt;-</span></span>
-<span id="cb41-4"><a href=""></a>  <span class="fu">read_sf</span>(<span class="st">"https://raw.githubusercontent.com/rfortherestofus/mapping-with-r-v2/refs/heads/main/data/africa.geojson"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb41-4"><a href=""></a>  <span class="fu">read_rds</span>(<span class="st">"https://raw.githubusercontent.com/rfortherestofus/mapping-with-r-v2/refs/heads/main/data/africa.rds"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell fragment">
 
@@ -1407,21 +1407,98 @@ Geodetic CRS:  WGS 84
 
 
 <section id="accessing-raw-geospatial-data" class="title-slide slide level2 inverse center">
-<h2>Accessing raw geospatial data</h2>
+<h2>Accessing Raw Geospatial Data</h2>
 
 </section>
-<section id="my-turn" class="title-slide slide level3 center">
-<h3>My Turn</h3>
-<p>Demonstrate read_sf()</p>
-<p>Talk about shp data and show meme about shapefiles being left behind</p>
-<p>Show geojson data</p>
+<section id="sf-package" class="title-slide slide level3 center">
+<h3>{sf} Package</h3>
+
+<img data-src="assets/sf.png" class="r-stretch"></section>
+
+<section id="geospatial-data-formats-esri-shapefile" class="title-slide slide level3 inverse center">
+<h3>Geospatial Data Formats: ESRI Shapefile</h3>
+
+</section>
+
+<section id="esri-shapefile" class="title-slide slide level3 center">
+<h3>ESRI Shapefile</h3>
+<p>Consists of multiple files:</p>
+<ol type="1">
+<li class="fragment"><code>.shp</code>: The main file that contains the geometry data (shapes) of the features.</li>
+<li class="fragment"><code>.shx</code>: The shape index file, which stores the positional index of the feature geometry to improve access speed.</li>
+<li class="fragment"><code>.dbf</code>: The attribute format file, which stores attribute data in a tabular format. This file uses the dBase format.</li>
+</ol>
+</section>
+
+<section id="esri-shapefile-1" class="title-slide slide level3 center">
+<h3>ESRI Shapefile</h3>
+<p>In addition to these three mandatory files, there are several optional files that can accompany a shapefile:</p>
+<ul>
+<li class="fragment"><code>.prj</code>: The projection file, which contains coordinate system and projection information.</li>
+<li class="fragment"><code>.sbn</code> and <code>.sbx</code>: Spatial index files that improve the speed of spatial queries.</li>
+<li class="fragment"><code>.fbn</code> and <code>.fbx</code>: Files used for spatial indexing of features that have been deleted.</li>
+</ul>
+</section>
+
+<section id="esri-shapefile-2" class="title-slide slide level3 center">
+<h3>ESRI Shapefile</h3>
+<ul>
+<li class="fragment"><code>.ain</code> and <code>.aih</code>: Attribute index files that improve the speed of attribute queries.</li>
+<li class="fragment"><code>.ixs</code> and <code>.mxs</code>: Geocoding index for read-write and read-only datasets, respectively.</li>
+<li class="fragment"><code>.cpg</code>: The code page file, which specifies the character encoding used in the .dbf file.</li>
+</ul>
+</section>
+
+<section id="esri-shapefile-3" class="title-slide slide level3 center">
+<h3>ESRI Shapefile</h3>
+<ul>
+<li class="fragment"><p><a href="https://gis-pdx.opendata.arcgis.com/datasets/2aec1ba28a6d47b790d59dd831f9bc76_1413/explore?location=45.485228%2C-122.289380%2C9.18">Import city council data from PortlandMaps Open Data</a></p></li>
+<li class="fragment"><p>Import data with <code>read_sf()</code></p></li>
+</ul>
+</section>
+<section class="slide level4 center">
+
+<p>TODO: center slide</p>
+<p><a href="https://www.reddit.com/r/gis/comments/sbp8r9/please_find_the_shapefile_attached/"><img data-src="assets/shapefile-airplane-meme.jpg"></a></p>
+</section>
+
+<section id="geospatial-data-formats-geojson" class="title-slide slide level3 inverse center">
+<h3>Geospatial Data Formats: GeoJSON</h3>
+
+</section>
+
+<section id="geospatial-data-formats-geojson-1" class="title-slide slide level3 center">
+<h3>Geospatial Data Formats: GeoJSON</h3>
+<ul>
+<li class="fragment"><p>One file with everything you need embedded within it</p></li>
+<li class="fragment"><p><a href="https://gis-pdx.opendata.arcgis.com/datasets/2aec1ba28a6d47b790d59dd831f9bc76_1413/explore?location=45.485228%2C-122.289380%2C9.18">Import GeoJSON city council data from PortlandMaps Open Data</a></p></li>
+</ul>
+</section>
+
+<section id="geospatial-data-formats-others" class="title-slide slide level3 inverse center">
+<h3>Geospatial Data Formats: Others</h3>
+
+</section>
+<section class="slide level4 center">
+
+<p>TODO: center slide</p>
+<p><a href="https://r.geocompx.org/read-write"><img data-src="assets/geospatial-data-formats.png"></a></p>
+</section>
+
+<section id="geospatial-data-formats-others-1" class="title-slide slide level3 center">
+<h3>Geospatial Data Formats: Others</h3>
+<ul>
+<li class="fragment">Almost all file formats can be imported with <code>read_sf()</code></li>
+</ul>
 </section>
 
 <section id="your-turn-2" class="title-slide slide level3 your-turn center">
 <h3>Your Turn</h3>
-<p>Import data and examine it</p>
-<p>Have them download shp data and import it</p>
-<p>Have them download geojson and download it</p>
+<ul>
+<li class="fragment"><p><a href="https://gis-pdx.opendata.arcgis.com/datasets/PDX::portland-administrative-sextants/explore">Download data (ESRI Shapefile or GeoJSON) on Portland sextants</a></p></li>
+<li class="fragment"><p>Import the data in R using the <code>read_sf()</code> function from the <code>sf</code> package and save it as <code>portland_sextants</code></p></li>
+<li class="fragment"><p>Examine <code>portland_sextants</code>, making sure you can identify its geometry type, dimensions, bounding box, coordinate reference system and <code>geometry</code> column</p></li>
+</ul>
 </section>
 
 <section id="learn-more-2" class="title-slide slide level3 center">
