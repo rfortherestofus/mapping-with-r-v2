@@ -89,7 +89,9 @@ h3.title {
   h1,
   h2,
   h3,
-  h1 > code {
+  h1 > code,
+  h2 > code,
+  h3 > code {
     color: $body-bg;
     line-height: 1;
     letter-spacing: -2px;

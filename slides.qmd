@@ -62,7 +62,7 @@ ne_countries() |>
 
 ### How course works
 
-# Geospatial Data: Vector Data
+# Geospatial Data: Vector Data {.inverse}
 
 ## Simple Features Data {.inverse}
 
@@ -137,22 +137,6 @@ ggplot() +
 ```
 
 #### `MULTIPOLYGON`
-
-```{r}
-wyoming_counties <-
-  read_sf("data/wyoming-counties.geojson")
-
-wyoming_counties
-```
-
----
-
-```{r}
-ggplot() +
-  geom_sf(data = wyoming_counties)
-```
-
----
 
 ```{r}
 #| echo: false
@@ -246,8 +230,6 @@ rhode_island_bounding_box <-
   st_bbox() |>
   st_as_sfc() |>
   st_sf() |>
-  mutate(id = "bbox") |>
-  select(id) |>
   rename(geometry = st_as_sfc.st_bbox.rhode_island..)
 ```  
 
@@ -268,7 +250,9 @@ ggplot() +
   )
 ```
 
-### Coordinate Reference System (CRS)
+### Coordinate Reference System (CRS) {.inverse}
+
+---
 
 ```{r}
 wyoming
@@ -379,7 +363,39 @@ anim_save("assets/wyoming-animated.gif")
 
 ### Your Turn {.your-turn}
 
-Provide code for user to make simple map
+```{r}
+#| eval: false
+#| echo: false
+library(rnaturalearth)
+library(tidyverse)
+library(sf)
+
+ne_countries(continent = "Africa") |> 
+  select(admin) |> 
+  arrange(admin) |> 
+  write_sf("data/africa.geojson")
+```
+
+
+- Run the following code in order to import an `sf` object called `africa`. You'll need to install the {sf} package if you don't already have it installed.
+
+. . .
+
+```{r}
+#| echo: true
+#| eval: false
+
+library(sf)
+
+africa <-
+  read_sf("https://raw.githubusercontent.com/rfortherestofus/mapping-with-r-v2/refs/heads/main/data/africa.geojson")
+```
+
+### Your Turn {.your-turn}
+
+- Examine your object, ensuring you can identify its geometry type, dimensions, bounding box, coordinate reference system and `geometry` column.
+
+- If you want to try making a static with the `geom_sf()` function from ggplot and/or an interactive map with the `mapview()` function from the {mapview} package.
 
 ### Learn More
 
