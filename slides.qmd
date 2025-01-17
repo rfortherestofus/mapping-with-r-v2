@@ -14,12 +14,17 @@ format:
 execute: 
   message: false
   warning: false
-  cache: true
+  cache: false
   echo: true
 title-slide-attributes:
   data-background-image: assets/rru-hex-bg-gradient-dark.svg
   data-background-size: cover
 ---
+
+```{r}
+#| echo: false
+options(pillar.sigfig = 7)
+```
 
 # Welcome to Course {.inverse}
 
@@ -309,11 +314,6 @@ wyoming_coordinates <-
 . . .
 
 ```{r}
-#| echo: false
-options(pillar.sigfig = 7)
-```
-
-```{r}
 wyoming_coordinates
 ```
 
@@ -370,9 +370,9 @@ library(rnaturalearth)
 library(tidyverse)
 library(sf)
 
-ne_countries(continent = "Africa") |> 
-  select(admin) |> 
-  arrange(admin) |> 
+ne_countries(continent = "Africa") |>
+  select(admin) |>
+  arrange(admin) |>
   write_rds("data/africa.rds")
 ```
 
@@ -439,9 +439,21 @@ In addition to these three mandatory files, there are several optional files tha
 
 ---
 
+```{r}
+read_sf("data/Portland_City_Council_Districts.shp")
+```
+
+---
+
 TODO: center slide
 
 [![](assets/shapefile-airplane-meme.jpg)](https://www.reddit.com/r/gis/comments/sbp8r9/please_find_the_shapefile_attached/)
+
+---
+
+```{r}
+read_sf("data/Portland_City_Council_Districts.shp")
+```
 
 
 ### Geospatial Data Formats: GeoJSON {.inverse}
@@ -451,6 +463,12 @@ TODO: center slide
 - One file with everything you need embedded within it
 
 - [Import GeoJSON city council data from PortlandMaps Open Data](https://gis-pdx.opendata.arcgis.com/datasets/2aec1ba28a6d47b790d59dd831f9bc76_1413/explore?location=45.485228%2C-122.289380%2C9.18)
+
+---
+
+```{r}
+read_sf("data/Portland_City_Council_Districts.geojson")
+```
 
 ### Geospatial Data Formats: Others {.inverse}
 
@@ -479,6 +497,234 @@ https://r-spatial.github.io/sf/articles/sf2.html
 
 ## Turning Data Frames into `sf` Objects {.inverse}
 
+```{r}
+#| eval: false
+#| echo: false
+
+# https://www.portlandmaps.com/metadata/index.cfm?&action=DisplayLayer&LayerID=52777
+library(janitor)
+
+portland_corners <-
+  read_sf("data/Corners_Improved.geojson") |>
+  st_make_valid() |>
+  st_centroid()
+
+portland_corners |>
+  clean_names() |>
+  select(asset_id, ramp_style) |>
+  st_coordinates() |>
+  as_tibble() |>
+  rename(longitude = X, latitude = Y) |>
+  write_csv("data/portland-corners.csv")
+```
+
+### `st_as_sf()`
+
+```{r}
+#| eval: false
+library(sf)
+
+csv_file |>
+  st_as_sf(
+    coords = c("x_variable", "y_variable"),
+    crs = 4326
+  )
+```
+
+::: {.notes}
+Talk about having to put variable names in quotes
+
+Talk about crs: show how not adding CRS makes it not show up correctly on map
+:::
+
+---
+
+```{r}
+portland_corners_csv <-
+  read_csv("data/portland-corners.csv")
+```
+
+. . .
+```{r}
+portland_corners_csv
+```
+
+---
+
+```{r}
+portland_corners_sf <-
+  portland_corners_csv |>
+  st_as_sf(
+    coords = c("longitude", "latitude"),
+    crs = 4326
+  )
+```
+
+
+. . .
+
+```{r}
+portland_corners_sf
+```
+
+---
+
+```{r}
+portland_corners_sf |>
+  mapview::mapview()
+```
 
 
 
+### Your Turn {.your-turn}
+
+1. [Download this CSV](https://raw.githubusercontent.com/rfortherestofus/mapping-with-r-v2/refs/heads/main/data/portland-traffic-signals.csv) of traffic signal data for the city of Portland
+
+1. Import the CSV and turn it into an `sf` object using `st_as_sf()`
+
+1. Run `mapview::mapview()` to ensure you imported it correctly
+
+## Geocoding {.inverse}
+
+### {tidygeocoder}
+
+![](assets/tidygeocoder.png)
+
+### {tidygeocoder} {.inverse}
+
+### Geocoding a Full Address
+
+```{r}
+library(tidyverse)
+
+us_and_uk_head_residences <-
+  tribble(
+    ~building,
+    ~address,
+    "White House",
+    "1600 Pennsylvania Ave NW, Washington, DC 20500 United States",
+    "Number 10",
+    "10 Downing St, London SW1A 2AA, United Kingdom"
+  )
+```
+
+```{r}
+library(tidygeocoder)
+
+us_and_uk_head_residences |>
+  geocode(address)
+```
+
+. . .
+
+```{r}
+us_and_uk_head_residences_sf <-
+  us_and_uk_head_residences |>
+  geocode(address) |>
+  st_as_sf(
+    coords = c("long", "lat"),
+    crs = 4326
+  )
+```
+
+---
+
+```{r}
+us_and_uk_head_residences_sf |>
+  mapview::mapview()
+```
+
+### Geocoding Services {.inverse}
+
+---
+
+```{r}
+us_and_uk_head_residences |>
+  geocode(
+    address,
+    method = "iq"
+  )
+```
+
+::: {.notes}
+Both ArcGIS (https://location.arcgis.com/pricing/#geocoding) and Mapbox (https://www.mapbox.com/pricing) are paid for storing addresses
+:::
+
+
+---
+
+```{r}
+us_and_uk_head_residences <-
+  tribble(
+    ~building,
+    ~address,
+    ~city,
+    ~state,
+    ~postal_code,
+    ~country,
+    "White House",
+    "1600 Pennsylvania Ave NW",
+    "Washington",
+    "DC",
+    "20500",
+    "United States",
+    "Number 10",
+    "10 Downing St",
+    "London",
+    NA,
+    "SW1A 2AA",
+    "United Kingdom"
+  )
+```
+
+```{r}
+us_and_uk_head_residences |>
+  geocode(
+    street = address,
+    city = city,
+    state = state,
+    postalcode = postal_code,
+    country = country
+  )
+```
+
+::: {.notes}
+Doesn't work for Number 10, which is transition to talking about `method` argument
+:::
+
+---
+
+```{r}
+#| code-line-numbers: "8"
+us_and_uk_head_residences |>
+  geocode(
+    street = address,
+    city = city,
+    state = state,
+    postalcode = postal_code,
+    country = country,
+    method = "iq"
+  )
+```
+
+## Your Turn {.your-turn}
+
+1. Create a tibble with the following starter code for your home address:
+
+. . .
+
+```{r}
+#| eval: false
+
+library(tidyverse)
+
+my_address <-
+  tribble(
+    ~address,
+    "Your address goes here"
+  )
+```
+
+1. Use the {tidygeocoder} package to geocode your address
+
+1. Turn the result into an `sf` object with `st_as_sf()` and plot it on a map with `mapview::mapview()` to make sure it worked
