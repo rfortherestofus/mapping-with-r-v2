@@ -1,0 +1,25 @@
+project:
+  type: default
+  output-dir: rendered-slides
+
+format:
+  rfortherestofus-slides-revealjs:
+    menu: false
+    progress: false
+    slide-number: true
+    show-slide-number: print
+    center: true
+    incremental: true
+    auto-animate: true
+    slide-level: 4
+    output-location: fragment
+
+execute: 
+  message: false
+  warning: false
+  cache: false
+  echo: true
+  
+title-slide-attributes:
+  data-background-image: assets/rru-hex-bg-gradient-dark.svg
+  data-background-size: cover

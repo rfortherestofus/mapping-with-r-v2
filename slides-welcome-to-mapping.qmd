@@ -1,0 +1,41 @@
+---
+title: Welcome to Mapping with R
+---
+
+
+### Why making maps with R makes sense
+
+R is a complete GIS tool
+
+### Two types of data: vector and raster. We'll mostly cover vector.
+
+### Make simple maps with ggplot and mapview
+
+#### Access Data
+
+```{r}
+library(rnaturalearth)
+
+ne_countries()
+```
+
+#### Make simple map with ggplot
+
+```{r}
+library(tidyverse)
+
+ne_countries() |>
+  ggplot() +
+  geom_sf()
+```
+
+#### Make simple map with mapview
+
+```{r}
+library(mapview)
+
+ne_countries() |>
+  mapview()
+```
+
+### How course works

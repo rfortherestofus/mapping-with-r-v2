@@ -1,0 +1,96 @@
+---
+title: Turning Data Frames into sf Objects
+---
+
+```{r}
+#| echo: false
+library(tidyverse)
+library(sf)
+```
+
+```{r}
+#| eval: false
+#| echo: false
+
+# https://www.portlandmaps.com/metadata/index.cfm?&action=DisplayLayer&LayerID=52777
+library(janitor)
+
+portland_corners <-
+  read_sf("data/Corners_Improved.geojson") |>
+    st_make_valid() |>
+    st_centroid()
+
+portland_corners |>
+  clean_names() |>
+  select(asset_id, ramp_style) |>
+  st_coordinates() |>
+  as_tibble() |>
+  rename(longitude = X, latitude = Y) |>
+  write_csv("data/portland-corners.csv")
+```
+
+### `st_as_sf()`
+
+```{r}
+#| eval: false
+library(sf)
+
+csv_file |>
+  st_as_sf(
+    coords = c("x_variable", "y_variable"),
+    crs = 4326
+  )
+```
+
+::: {.notes}
+Talk about having to put variable names in quotes
+
+Talk about crs: show how not adding CRS makes it not show up correctly on map
+:::
+
+---
+
+```{r}
+portland_corners_csv <-
+  read_csv("data/portland-corners.csv")
+```
+
+. . .
+```{r}
+portland_corners_csv
+```
+
+---
+
+```{r}
+portland_corners_sf <-
+  portland_corners_csv |>
+    st_as_sf(
+      coords = c("longitude", "latitude"),
+      crs = 4326
+    )
+```
+
+
+. . .
+
+```{r}
+portland_corners_sf
+```
+
+---
+
+```{r}
+portland_corners_sf |>
+  mapview::mapview()
+```
+
+
+
+### Your Turn {.your-turn}
+
+1. [Download this CSV](https://raw.githubusercontent.com/rfortherestofus/mapping-with-r-v2/refs/heads/main/data/portland-traffic-signals.csv) of traffic signal data for the city of Portland
+
+1. Import the CSV and turn it into an `sf` object using `st_as_sf()`
+
+1. Run `mapview::mapview()` to ensure you imported it correctly
