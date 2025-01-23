@@ -148,7 +148,6 @@ ggplot() +
 #| eval: false
 fs::file_delete("data/rhode-island.geojson")
 
-
 read_sf("data/BND_State_1997_spf_-1467871017424358584.geojson") |>
   summarize(geometry = st_combine(geometry)) |>
   write_sf(
@@ -232,10 +231,10 @@ rhode_island
 #| echo: false
 rhode_island_bounding_box <-
   rhode_island |>
-  st_bbox() |>
-  st_as_sfc() |>
-  st_sf() |>
-  rename(geometry = st_as_sfc.st_bbox.rhode_island..)
+    st_bbox() |>
+    st_as_sfc() |>
+    st_sf() |>
+    rename(geometry = st_as_sfc.st_bbox.rhode_island..)
 ```  
 
 ```{r}
@@ -269,7 +268,7 @@ wyoming
 #| echo: false
 wyoming_different_projection <-
   wyoming |>
-  st_transform(5070)
+    st_transform(5070)
 ```
 
 ```{r}
@@ -305,10 +304,10 @@ wyoming
 #| echo: false
 wyoming_coordinates <-
   wyoming |>
-  st_coordinates() |>
-  as_tibble() |>
-  rename(longitude = X, latitude = Y) |>
-  select(longitude, latitude)
+    st_coordinates() |>
+    as_tibble() |>
+    rename(longitude = X, latitude = Y) |>
+    select(longitude, latitude)
 ```
 
 . . .
@@ -321,10 +320,12 @@ wyoming_coordinates
 
 ```{r}
 wyoming_coordinates |>
-  ggplot(aes(
-    x = longitude,
-    y = latitude
-  )) +
+  ggplot(
+    aes(
+      x = longitude,
+      y = latitude
+    )
+  ) +
   geom_point()
 ```
 
@@ -337,15 +338,17 @@ library(gganimate)
 
 wyoming_coordinates_animated <-
   wyoming_coordinates |>
-  mutate(row_number = row_number()) |>
-  # slice(1:10) |>
-  ggplot(aes(
-    x = longitude,
-    y = latitude,
-    group = row_number
-  )) +
-  geom_point() +
-  transition_reveal(row_number)
+    mutate(row_number = row_number()) |>
+    # slice(1:10) |>
+    ggplot(
+      aes(
+        x = longitude,
+        y = latitude,
+        group = row_number
+      )
+    ) +
+    geom_point() +
+    transition_reveal(row_number)
 
 animate(
   wyoming_coordinates_animated,
@@ -388,7 +391,9 @@ ne_countries(continent = "Africa") |>
 library(tidyverse)
 
 africa <-
-  read_rds("https://raw.githubusercontent.com/rfortherestofus/mapping-with-r-v2/refs/heads/main/data/africa.rds")
+  read_rds(
+    "https://raw.githubusercontent.com/rfortherestofus/mapping-with-r-v2/refs/heads/main/data/africa.rds"
+  )
 ```
 
 ### Your Turn {.your-turn}
@@ -506,8 +511,8 @@ library(janitor)
 
 portland_corners <-
   read_sf("data/Corners_Improved.geojson") |>
-  st_make_valid() |>
-  st_centroid()
+    st_make_valid() |>
+    st_centroid()
 
 portland_corners |>
   clean_names() |>
@@ -554,10 +559,10 @@ portland_corners_csv
 ```{r}
 portland_corners_sf <-
   portland_corners_csv |>
-  st_as_sf(
-    coords = c("longitude", "latitude"),
-    crs = 4326
-  )
+    st_as_sf(
+      coords = c("longitude", "latitude"),
+      crs = 4326
+    )
 ```
 
 
@@ -620,11 +625,11 @@ us_and_uk_head_residences |>
 ```{r}
 us_and_uk_head_residences_sf <-
   us_and_uk_head_residences |>
-  geocode(address) |>
-  st_as_sf(
-    coords = c("long", "lat"),
-    crs = 4326
-  )
+    geocode(address) |>
+    st_as_sf(
+      coords = c("long", "lat"),
+      crs = 4326
+    )
 ```
 
 ---
