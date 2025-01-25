@@ -36,3 +36,7 @@ Do same thing I do in [book](https://book.rfortherestofus.com/maps.html#a-brief-
 ## Geocoding {.inverse}
 
 {{< include slides-geocoding.qmd >}}
+
+## Accessing Geospatial Data Through Packages {.inverse}
+
+{{< include slides-accessing-geospatial-data-through-packages.qmd >}}
