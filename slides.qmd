@@ -40,3 +40,74 @@ Do same thing I do in [book](https://book.rfortherestofus.com/maps.html#a-brief-
 ## Accessing Geospatial Data Through Packages {.inverse}
 
 {{< include slides-accessing-geospatial-data-through-packages.qmd >}}
+
+# Static Maps {.inverse}
+
+## Mapping with ggplot {.inverse}
+
+{{< include slides-mapping-with-ggplot.qmd >}}
+
+## Choropleth Maps {.inverse}
+
+{{< include slides-choropleth-maps.qmd >}}
+
+## Adding Text to Maps {.inverse}
+
+<!-- {{< include slides-adding-text-to-maps.qmd >}} -->
+
+## Choosing a Projection {.inverse}
+
+<!-- {{< include slides-choosing-a-projection.qmd >}} -->
+
+## Map Flourishes {.inverse}
+
+<!-- {{< include slides-map-flourishes.qmd >}} -->
+
+# Interactive Maps {.inverse}
+
+## Making Interactive Maps with {leaflet} {.inverse}
+
+<!-- {{< include slides-making-interactive-maps-with-leaflet.qmd >}} -->
+
+## Making Choropleth Maps with {leaflet} {.inverse}
+
+<!-- {{< include slides-making-choropleth-maps-with-leaflet.qmd >}} -->
+
+## Making Interactive Maps with Other Packages {.inverse}
+
+<!-- {{< include slides-making-interactive-maps-with-other-packages.qmd >}} -->
+
+# Geospaital Data Analysis
+
+## Joining Data Frmes with sf Objects {.inverse}
+
+<!-- {{< include slides-joining-data-frames-with-sf-objects.qmd >}} -->
+
+## Joining Two sf Objects {.inverse}
+
+<!-- {{< include slides-joining-two-sf-objects.qmd >}} -->
+
+## Combining Multiple sf Objects {.inverse}
+
+<!-- {{< include slides-combining-multiple-sf-objects.qmd >}} -->
+
+## Making Heatmaps {.inverse}
+
+<!-- {{< include slides-making-heatmaps.qmd >}} -->
+
+## Spatial Overlays {.inverse}
+
+<!-- {{< include slides-spatial-overlays.qmd >}} -->
+
+# Raster Data {.inverse}
+
+# Wrapping Up {.inverse}
+
+## Should This Be a Map? {.inverse}
+
+<!-- {{< include slides-should-this-be-a-map.qmd >}} -->
+
+## Wrapping up Mapping with R {.inverse}
+
+<!-- {{< include slides-wrapping-up-mapping-with-r.qmd >}} -->
+

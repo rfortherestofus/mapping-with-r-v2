@@ -205,7 +205,7 @@ census_api_key("<insert your API key here>", install = TRUE)
 ```{r}
 acs_variables <-
   load_variables(
-    year = 2020,
+    year = 2023,
     dataset = "acs5",
     cache = TRUE
   )
@@ -216,9 +216,9 @@ library(tidyverse)
 
 median_household_income_variable <-
   acs_variables |>
-  filter(str_detect(label, "Median household income")) |>
-  filter(geography == "county") |>
-  pull(name)
+    filter(str_detect(label, "Median household income")) |>
+    filter(geography == "county") |>
+    pull(name)
 ```
 
 ---

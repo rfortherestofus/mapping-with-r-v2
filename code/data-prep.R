@@ -1,6 +1,29 @@
+# Refugees Data ----------------------------------------------------------
+
+library(refugees)
+library(rnaturalearth)
+library(sf)
+
+refugees <-
+  population |>
+    rename(country_abbreviation = coo_iso) |>
+    group_by(year, country_abbreviation) |>
+    summarise(number_of_refugees = sum(refugees, na.rm = TRUE)) |>
+    ungroup() |>
+    slice_max(order_by = year, n = 1) |>
+    select(-year)
+
+countries_data <-
+  ne_countries() |>
+    select(iso_a3) |>
+    rename(country_abbreviation = iso_a3) |>
+    filter(country_abbreviation != "-99")
+
+countries_data |>
+  right_join(refugees) |>
+  st_write("data/refugees.geojson")
+
 # Rhode Island -----------------------------------------------------------
-
-
 
 # Oregon cities ----------------------------------------------------------
 
@@ -18,17 +41,16 @@ places(state = "OR") |>
   mutate(longitude = parse_number(longitude)) |>
   write_csv("data/oregon-towns.csv")
 
-
 # Portland traffic signals -----------------------------------------------
 
 library(sf)
 
 traffic_signal_numbers <-
   read_sf("data/Traffic_Signals.geojson") |>
-  st_drop_geometry() |>
-  clean_names() |>
-  select(signal_num) |>
-  set_names("signal_number")
+    st_drop_geometry() |>
+    clean_names() |>
+    select(signal_num) |>
+    set_names("signal_number")
 
 read_sf("data/Traffic_Signals.geojson") |>
   clean_names() |>
