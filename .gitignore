@@ -50,5 +50,5 @@ rsconnect/
 
 /.quarto/
 data/Corners_Improved.geojson
-/rendered-slides
+/rendered-slides/
 /_freeze
