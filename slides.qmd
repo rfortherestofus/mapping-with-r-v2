@@ -53,7 +53,7 @@ Do same thing I do in [book](https://book.rfortherestofus.com/maps.html#a-brief-
 
 ## Adding Text to Maps {.inverse}
 
-<!-- {{< include slides-adding-text-to-maps.qmd >}} -->
+{{< include slides-adding-text-to-maps.qmd >}}
 
 ## Choosing a Projection {.inverse}
 

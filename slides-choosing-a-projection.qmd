@@ -16,6 +16,8 @@ https://map-projections.net/single-view/canters-francula
 https://www.reddit.com/r/dataisbeautiful/comments/9nkhkz/animating_the_mercator_projection_to_the_true/
 
 https://bsky.app/profile/locations.bsky.social/post/3lgpvzjcmek2k
+
+https://mrgris.com/projects/merc-extreme/
 :::
 
 ```{r}
