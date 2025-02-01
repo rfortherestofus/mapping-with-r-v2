@@ -15,53 +15,187 @@ https://map-projections.net/single-view/canters-francula
 
 https://www.reddit.com/r/dataisbeautiful/comments/9nkhkz/animating_the_mercator_projection_to_the_true/
 
-https://bsky.app/profile/locations.bsky.social/post/3lgpvzjcmek2k
-
 https://mrgris.com/projects/merc-extreme/
+
+https://en.wikipedia.org/wiki/Cahill%E2%80%93Keyes_projection#/media/File:Cahill-Keyes_projection.jpg
 :::
 
+---
+
 ```{r}
+library(tidyverse)
 library(rnaturalearth)
 
 all_countries <-
-  ne_countries()
+  ne_countries() |>
+  select(sovereignt)
 ```
 
+. . .
+
 ```{r}
+all_countries
+```
+
+---
+
+```{r}
+#| output-location: slide
+
 library(sf)
-library(tidyverse)
+
+all_countries |>
+  ggplot() +
+  geom_sf()
 ```
 
+---
+
 ```{r}
+#| code-line-numbers: "2"
+#| output-location: slide
+all_countries |>
+  st_transform("+proj=moll +datum=WGS84 +units=m") |>
+  ggplot() +
+  geom_sf()
+```
+
+---
+
+```{r}
+#| code-line-numbers: "2"
+#| output-location: slide
 all_countries |>
   st_transform("+proj=laea +x_0=0 +y_0=0 +lon_0=0 +lat_0=0") |>
   ggplot() +
   geom_sf()
 ```
 
+---
+
 ```{r}
-all_countries |>
-  st_transform(4267) |>
+#| output-location: slide
+library(crsuggest)
+
+africa <-
+  ne_countries(continent = "Africa") |>
+  select(sovereignt)
+
+africa |>
   ggplot() +
   geom_sf()
 ```
 
-```{r}
-all_countries |>
-  crsuggest::suggest_top_crs()
+---
 
-all_countries |>
-  st_transform(3395) |>
+```{r}
+africa |>
+  suggest_top_crs()
+```
+
+. . .
+
+```{r}
+africa_crs <-
+  africa |>
+  suggest_top_crs()
+```
+
+. . .
+
+```{r}
+#| code-line-numbers: "2"
+#| output-location: slide
+
+africa |>
+  st_transform(africa_crs) |>
   ggplot() +
   geom_sf()
 ```
+
+---
+
+:::: {.columns}
+
+::: {.column width="50%"}
+```{r}
+#| echo: false
+africa |>
+  ggplot() +
+  geom_sf()
+```
+:::
+
+::: {.column width="50%"}
+
+```{r}
+#| echo: false
+africa |>
+  st_transform(africa_crs) |>
+  ggplot() +
+  geom_sf()
+```
+
+:::
+
+::::
+
+---
+
+```{r}
+#| echo: false
+#| output: false
+library(tigris)
+
+continental_us_states <-
+  states() |>
+  select(NAME) |>
+  filter(NAME %in% state.name) |>
+  filter(NAME != "Alaska") |>
+  filter(NAME != "Hawaii")
+```
+
+:::: {.columns}
+
+::: {.column width="50%"}
+
+```{r}
+#| echo: false
+continental_us_states |>
+  ggplot() +
+  geom_sf()
+```
+:::
+
+::: {.column width="50%"}
+
+```{r}
+#| echo: false
+us_crs <-
+  continental_us_states |>
+  suggest_top_crs()
+
+continental_us_states |>
+  st_transform(us_crs) |>
+  ggplot() +
+  geom_sf()
+```
+:::
+
+::::
 
 ### Start with WGS84
 
-> When selecting geographic CRSs, the answer is often WGS84. It is used not only for web mapping, but also because GPS datasets and thousands of raster and vector datasets are provided in this CRS by default. WGS84 is the most common CRS in the world, so it is worth knowing its EPSG code: 4326.32 This ‘magic number’ can be used to convert objects with unusual projected CRSs into something that is widely understood.
+> When selecting geographic CRSs, the answer is often WGS84. ... WGS84 is the most common CRS in the world, so it is worth knowing its EPSG code: 4326. 
+
+### Your Turn {.your-turn}
+
+- Improve the map you made in the last lesson on the number of refugees from each country in the world by using the `crssuggest` package to find the best projection for the data.
+
+- Once you've done this, redo your map with this projection.
 
 ### Learn More
 
 https://www.youtube.com/watch?v=kIID5FDi2JQ
 
-https://r.geocompx.org/reproj-geo-data.html?q=project#which-crs
+https://r.geocompx.org/reproj-geo-data.html

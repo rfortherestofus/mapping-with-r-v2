@@ -51,17 +51,17 @@ Do same thing I do in [book](https://book.rfortherestofus.com/maps.html#a-brief-
 
 {{< include slides-choropleth-maps.qmd >}}
 
+## Dot and Bubble Maps {.inverse}
+
+{{< include slides-dot-and-bubble-maps.qmd >}}
+
 ## Adding Text to Maps {.inverse}
 
 {{< include slides-adding-text-to-maps.qmd >}}
 
 ## Choosing a Projection {.inverse}
 
-<!-- {{< include slides-choosing-a-projection.qmd >}} -->
-
-## Map Flourishes {.inverse}
-
-<!-- {{< include slides-map-flourishes.qmd >}} -->
+{{< include slides-choosing-a-projection.qmd >}}
 
 # Interactive Maps {.inverse}
 

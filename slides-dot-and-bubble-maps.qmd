@@ -1,0 +1,148 @@
+---
+title: Dot and Bubble Maps
+format:
+  rfortherestofus-slides-revealjs:
+    output-location: slide
+---
+
+```{r}
+library(tidyverse)
+library(tidycensus)
+library(tigris)
+library(janitor)
+library(sf)
+```
+
+### Dot Maps
+
+::: {.notes}
+https://cdn.bsky.app/img/feed_fullsize/plain/did:plc:qhkyl7b5yeg2o327qhijcz5v/bafkreiaemp2c2d5bksl4dz46l6tjgmtewqhlcq3wa7stvj3535jxmopm6y@jpeg (source: https://bsky.app/profile/higsch.com/post/3lgzm5mftyc2x)
+:::
+
+```{r}
+oregon_places <-
+  get_decennial(
+    geography = "place",
+    state = "OR",
+    variables = "P1_001N",
+    geometry = TRUE,
+    year = 2020
+  ) |>
+  st_centroid() |>
+  select(NAME, value) |>
+  set_names("name", "population", "geometry")
+
+oregon_places |>
+  write_sf("data/oregon-places.geojson")
+
+oregon <-
+  states() |>
+  clean_names() |>
+  filter(name == "Oregon")
+```
+
+```{r}
+ggplot() +
+  geom_sf(data = oregon, fill = "transparent") +
+  geom_sf(data = oregon_places) +
+  theme_void()
+```
+
+### Bubble Maps
+
+```{r}
+ggplot() +
+  geom_sf(data = oregon, fill = "transparent") +
+  geom_sf(
+    data = oregon_places,
+    aes(size = population),
+    alpha = 0.5
+  ) +
+  scale_size_continuous(range = c(1, 15)) +
+  theme_void()
+```
+
+
+```{r}
+# acs_variables <-
+#   load_variables(
+#     year = 2023,
+#     dataset = "acs5/subject",
+#     cache = TRUE
+#   )
+
+# acs_variables |>
+#   filter(str_detect(name, "S1601")) |>
+#   filter(str_detect(label, "Estimate!!Total!!Population 5 years and over!!SPEAK A LANGUAGE OTHER THAN ENGLISH!!")) |>
+#   mutate(langauge = str_remove(label, "!!Total!!Population 5 years and over!!SPEAK A LANGUAGE OTHER THAN ENGLISH!!")) |>
+#   select(name, langauge, label)
+
+languages_spoken <-
+  get_acs(
+    geography = "county",
+    state = "OR",
+    variable = c(
+      spanish = "S1601_C01_004",
+      other_indo_european = "S1601_C01_008",
+      asian_pacific_islander = "S1601_C01_012",
+      other = "S1601_C01_016"
+    ),
+    geometry = TRUE
+  ) |>
+  clean_names() |>
+  select(variable, name, estimate)
+```
+
+### Dot Density Maps
+
+::: {.notes}
+Show: https://personal.tcu.edu/kylewalker/maps/education/#10/37.7536/-122.4473
+:::
+
+```{r}
+ggplot() +
+  geom_sf(data = languages_spoken, aes(fill = estimate)) +
+  scale_fill_viridis_c() +
+  facet_wrap(~variable) +
+  theme_void()
+```
+
+```{r}
+languages_spoken_dots <-
+  languages_spoken |>
+  filter(name == "Washington County, Oregon") |>
+  mutate(estimate = estimate / 100) |>
+  as_dot_density(
+    value = "estimate",
+    values_per_dot = 1,
+    group = "variable"
+  )
+```
+
+```{r}
+ggplot() +
+  geom_sf(data = languages_spoken_dots, aes(color = variable)) +
+  geom_sf(
+    data = languages_spoken |>
+      filter(name == "Washington County, Oregon"),
+    fill = "transparent"
+  ) +
+  theme_void()
+```
+
+```{r}
+ggplot() +
+  geom_sf(data = languages_spoken_dots, aes(color = variable)) +
+  geom_sf(
+    data = languages_spoken |>
+      filter(name == "Washington County, Oregon"),
+    fill = "transparent"
+  ) +
+  theme_void() +
+  facet_wrap(~variable)
+```
+
+
+## Learn More
+
+Spike maps: https://www.youtube.com/watch?v=qTDf5VVnjMM also https://bsky.app/profile/higsch.com/post/3lgzm5mftyc2x
