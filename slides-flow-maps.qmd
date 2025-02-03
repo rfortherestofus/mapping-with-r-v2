@@ -25,58 +25,58 @@ deschutes_inflow <-
     county = "Deschutes",
     geometry = TRUE
   ) |>
-  clean_names() |>
-  filter(variable == "MOVEDIN") |>
-  slice_max(order_by = estimate, n = 10) |>
-  drop_na(geoid2)
+    clean_names() |>
+    filter(variable == "MOVEDIN") |>
+    slice_max(order_by = estimate, n = 10) |>
+    drop_na(geoid2)
 ```
 
 ```{r}
 deschutes_inflow_origins <-
   deschutes_inflow |>
-  st_drop_geometry() |>
-  st_set_geometry("centroid2") |>
-  select(geoid2, full2_name, estimate)
+    st_drop_geometry() |>
+    st_set_geometry("centroid2") |>
+    select(geoid2, full2_name, estimate)
 ```
 
 ```{r}
 deschutes_inflow_origins_centroid <-
   deschutes_inflow |>
-  select(centroid1, centroid2) |>
-  st_drop_geometry() |>
-  st_set_geometry("centroid2") |>
-  st_coordinates(centroid2) |>
-  as_tibble() |>
-  set_names("origin_x", "origin_y")
+    select(centroid1, centroid2) |>
+    st_drop_geometry() |>
+    st_set_geometry("centroid2") |>
+    st_coordinates(centroid2) |>
+    as_tibble() |>
+    set_names("origin_x", "origin_y")
 
 deschutes_inflow_destination_centroid <-
   deschutes_inflow |>
-  select(geoid1, full1_name, estimate) |>
-  st_coordinates() |>
-  as_tibble() |>
-  set_names("destination_x", "destination_y")
+    select(geoid1, full1_name, estimate) |>
+    st_coordinates() |>
+    as_tibble() |>
+    set_names("destination_x", "destination_y")
 
 deschutes_inflow_x_y <-
   deschutes_inflow |>
-  select(estimate) |>
-  st_drop_geometry() |>
-  bind_cols(deschutes_inflow_origins_centroid) |>
-  bind_cols(deschutes_inflow_destination_centroid)
+    select(estimate) |>
+    st_drop_geometry() |>
+    bind_cols(deschutes_inflow_origins_centroid) |>
+    bind_cols(deschutes_inflow_destination_centroid)
 ```
 
 ```{r}
 origin_states <-
   states() |>
-  clean_names() |>
-  select(name) |>
-  filter(
-    name %in%
-      c(
-        "Oregon",
-        "California",
-        "Arizona"
-      )
-  )
+    clean_names() |>
+    select(name) |>
+    filter(
+      name %in%
+        c(
+          "Oregon",
+          "California",
+          "Arizona"
+        )
+    )
 ```
 
 
@@ -90,7 +90,8 @@ ggplot() +
       xend = destination_x,
       y = origin_y,
       yend = destination_y
-    )
+    ),
+    color = "orange"
   ) +
   geom_sf(
     data = deschutes_inflow,
