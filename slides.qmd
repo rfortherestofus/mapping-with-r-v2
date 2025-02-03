@@ -55,6 +55,8 @@ Do same thing I do in [book](https://book.rfortherestofus.com/maps.html#a-brief-
 
 {{< include slides-dot-and-bubble-maps.qmd >}}
 
+
+
 ## Adding Text to Maps {.inverse}
 
 {{< include slides-adding-text-to-maps.qmd >}}
@@ -91,13 +93,19 @@ Do same thing I do in [book](https://book.rfortherestofus.com/maps.html#a-brief-
 
 <!-- {{< include slides-combining-multiple-sf-objects.qmd >}} -->
 
-## Making Heatmaps {.inverse}
-
-<!-- {{< include slides-making-heatmaps.qmd >}} -->
-
 ## Spatial Overlays {.inverse}
 
 <!-- {{< include slides-spatial-overlays.qmd >}} -->
+
+# Maps that Require Complicated Geospatial Analysis
+
+## Heatmaps {.inverse}
+
+<!-- {{< include slides-heatmaps.qmd >}} -->
+
+## Flow Maps
+
+<!-- {{< include slides-flow-maps.qmd >}} -->
 
 # Raster Data {.inverse}
 

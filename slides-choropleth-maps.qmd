@@ -171,3 +171,7 @@ Improve the map you made in the last lesson on the number of refugees from each 
 - Improving the legend by using colorsteps
 - Improving the legend by adjusting its width and height
 - Improving the legend by making nicely formatted values (`scales::comma_format()` is your friend here)
+
+### Learn More
+
+- biscale maps

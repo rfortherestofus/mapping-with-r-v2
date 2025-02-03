@@ -43,11 +43,11 @@ us_and_uk_head_residences |>
 ```{r}
 us_and_uk_head_residences_sf <-
   us_and_uk_head_residences |>
-  geocode(address) |>
-  st_as_sf(
-    coords = c("long", "lat"),
-    crs = 4326
-  )
+    geocode(address) |>
+    st_as_sf(
+      coords = c("long", "lat"),
+      crs = 4326
+    )
 ```
 
 ```{r}
