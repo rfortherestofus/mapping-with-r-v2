@@ -25,58 +25,58 @@ deschutes_inflow <-
     county = "Deschutes",
     geometry = TRUE
   ) |>
-    clean_names() |>
-    filter(variable == "MOVEDIN") |>
-    slice_max(order_by = estimate, n = 10) |>
-    drop_na(geoid2)
+  clean_names() |>
+  filter(variable == "MOVEDIN") |>
+  slice_max(order_by = estimate, n = 10) |>
+  drop_na(geoid2)
 ```
 
 ```{r}
 deschutes_inflow_origins <-
   deschutes_inflow |>
-    st_drop_geometry() |>
-    st_set_geometry("centroid2") |>
-    select(geoid2, full2_name, estimate)
+  st_drop_geometry() |>
+  st_set_geometry("centroid2") |>
+  select(geoid2, full2_name, estimate)
 ```
 
 ```{r}
 deschutes_inflow_origins_centroid <-
   deschutes_inflow |>
-    select(centroid1, centroid2) |>
-    st_drop_geometry() |>
-    st_set_geometry("centroid2") |>
-    st_coordinates(centroid2) |>
-    as_tibble() |>
-    set_names("origin_x", "origin_y")
+  select(centroid1, centroid2) |>
+  st_drop_geometry() |>
+  st_set_geometry("centroid2") |>
+  st_coordinates(centroid2) |>
+  as_tibble() |>
+  set_names("origin_x", "origin_y")
 
 deschutes_inflow_destination_centroid <-
   deschutes_inflow |>
-    select(geoid1, full1_name, estimate) |>
-    st_coordinates() |>
-    as_tibble() |>
-    set_names("destination_x", "destination_y")
+  select(geoid1, full1_name, estimate) |>
+  st_coordinates() |>
+  as_tibble() |>
+  set_names("destination_x", "destination_y")
 
 deschutes_inflow_x_y <-
   deschutes_inflow |>
-    select(estimate) |>
-    st_drop_geometry() |>
-    bind_cols(deschutes_inflow_origins_centroid) |>
-    bind_cols(deschutes_inflow_destination_centroid)
+  select(estimate) |>
+  st_drop_geometry() |>
+  bind_cols(deschutes_inflow_origins_centroid) |>
+  bind_cols(deschutes_inflow_destination_centroid)
 ```
 
 ```{r}
 origin_states <-
   states() |>
-    clean_names() |>
-    select(name) |>
-    filter(
-      name %in%
-        c(
-          "Oregon",
-          "California",
-          "Arizona"
-        )
-    )
+  clean_names() |>
+  select(name) |>
+  filter(
+    name %in%
+      c(
+        "Oregon",
+        "California",
+        "Arizona"
+      )
+  )
 ```
 
 
@@ -111,4 +111,49 @@ ggplot() +
 
 Your job is to create a flow map showing the top 5 countries of origin for asylum seekers in the United States in 2023. 
 
-1. Download data
+. . .
+
+Download data on the top 5 countries of origin for asylum seekers:
+
+. . .
+
+
+```{r}
+#| eval: false
+library(sf)
+
+asylum_seekers <-
+  read_sf(
+    "https://raw.githubusercontent.com/rfortherestofus/mapping-with-r-v2/refs/heads/main/data/asylum_seekers.geojson"
+  )
+```
+
+### Your Turn {.your-turn}
+
+Import geospatial data on all countries:
+
+
+```{r}
+countries <-
+  read_sf(
+    "https://raw.githubusercontent.com/rfortherestofus/mapping-with-r-v2/refs/heads/main/data/countries.geojson"
+  )
+```
+
+### Your Turn {.your-turn}
+
+Adapt the sample code from the lesson to make a map that shows the flows of asylum seekers from the top 5 countries to the United States. You'll need to:
+
+1. Use the `st_centroid()` function to turn the `asylum_seekers` object into geospatial data with single points (save it as `asylum_seekers_centroid`).
+
+1. Use the `st_coordinates()` function to turn `asylum_seekers_centroid` into an object with x and y variables for the coordinates (save it as `asylum_seekers_centroid_x_y`).
+
+1. Create a `united_states_centroid` object by filtering the `countries` object to just include the United States and then use `st_centroid()` to find its center.
+
+1. Use the `st_coordinates()` function to turn `united_states_centroid` into an object with x and y variables for the coordinates (save it as `united_states_centroid_x_y`).
+
+### Your Turn {.your-turn}
+
+1. Use `bind_cols()` to bring together the `asylum_seekers_centroid_x_y` and `united_states_centroid_x_y` objects into a single object (save it as `asylum_seekers_flow`).
+
+1. Make your map, using `geom_sf` to add all countries as a background layer before using `geom_curve()` to show the flow of asylum seekers from the top 5 countries.

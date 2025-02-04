@@ -7,8 +7,10 @@ library(rnaturalearth)
 countries_data <-
   ne_countries() |>
     select(iso_a3) |>
-    rename(country_abbreviation = iso_a3) |>
-    filter(country_abbreviation != "-99")
+    rename(country_abbreviation = iso_a3)
+
+countries_data |>
+  mapview::mapview()
 
 countries_data |>
   st_write("data/countries.geojson")
