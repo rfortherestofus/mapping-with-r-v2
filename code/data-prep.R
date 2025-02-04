@@ -1,3 +1,29 @@
+# Asylum Seekers ---------------------------------------------------------
+
+library(tidyverse)
+library(refugees)
+library(rnaturalearth)
+
+countries_data <-
+  ne_countries() |>
+    select(iso_a3) |>
+    rename(country_abbreviation = iso_a3) |>
+    filter(country_abbreviation != "-99")
+
+countries_data |>
+  st_write("data/countries.geojson")
+
+flows |>
+  filter(year == 2023) |>
+  filter(coa_name == "United States of America") |>
+  select(coo_iso, asylum_seekers) |>
+  slice_max(order_by = asylum_seekers, n = 5) |>
+  rename(country_abbreviation = coo_iso) |>
+  right_join(countries_data) |>
+  drop_na(asylum_seekers) |>
+  st_set_geometry("geometry") |>
+  st_write("data/asylum_seekers.geojson")
+
 # Refugees Data ----------------------------------------------------------
 
 library(refugees)
