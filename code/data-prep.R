@@ -58,6 +58,7 @@ countries_data |>
 library(tigris)
 library(tidyverse)
 library(janitor)
+library(sf)
 
 places(state = "OR") |>
   clean_names() |>

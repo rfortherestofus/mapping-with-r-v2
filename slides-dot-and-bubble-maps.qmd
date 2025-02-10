@@ -28,17 +28,17 @@ oregon_places <-
     geometry = TRUE,
     year = 2020
   ) |>
-  st_centroid() |>
-  select(NAME, value) |>
-  set_names("name", "population", "geometry")
+    st_centroid() |>
+    select(NAME, value) |>
+    set_names("name", "population", "geometry")
 
 oregon_places |>
   write_sf("data/oregon-places.geojson")
 
 oregon <-
   states() |>
-  clean_names() |>
-  filter(name == "Oregon")
+    clean_names() |>
+    filter(name == "Oregon")
 ```
 
 ```{r}
@@ -49,6 +49,14 @@ ggplot() +
 ```
 
 ### Bubble Maps
+
+::: {.notes}
+https://www.nytimes.com/2025/02/04/us/hurricane-helene-deaths.html
+
+https://bsky.app/profile/infobeautiful.bsky.social/post/3lhe447wxan2j
+
+https://www.nytimes.com/2025/02/08/world/europe/us-foreign-aid-freeze-wwk.html?smtyp=cur&smid=bsky-nytimes; https://show.rfor.us/qcd9tBSX
+:::
 
 ```{r}
 ggplot() +
@@ -89,8 +97,8 @@ languages_spoken <-
     ),
     geometry = TRUE
   ) |>
-  clean_names() |>
-  select(variable, name, estimate)
+    clean_names() |>
+    select(variable, name, estimate)
 ```
 
 ### Dot Density Maps
@@ -110,13 +118,13 @@ ggplot() +
 ```{r}
 languages_spoken_dots <-
   languages_spoken |>
-  filter(name == "Washington County, Oregon") |>
-  mutate(estimate = estimate / 100) |>
-  as_dot_density(
-    value = "estimate",
-    values_per_dot = 1,
-    group = "variable"
-  )
+    filter(name == "Washington County, Oregon") |>
+    mutate(estimate = estimate / 100) |>
+    as_dot_density(
+      value = "estimate",
+      values_per_dot = 1,
+      group = "variable"
+    )
 ```
 
 ```{r}

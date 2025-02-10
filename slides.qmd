@@ -79,7 +79,7 @@ Do same thing I do in [book](https://book.rfortherestofus.com/maps.html#a-brief-
 
 <!-- {{< include slides-making-interactive-maps-with-other-packages.qmd >}} -->
 
-# Geospaital Data Analysis
+# Geospatial Data Analysis
 
 ## Joining Data Frmes with sf Objects {.inverse}
 
