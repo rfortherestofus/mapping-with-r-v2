@@ -1,0 +1,122 @@
+---
+title: Making Choropleth Maps with {leaflet}
+---
+
+```{r}
+library(leaflet)
+library(tidyverse)
+library(tidycensus)
+library(janitor)
+library(tigris)
+library(scales)
+library(sf)
+```
+
+
+```{r}
+speak_language_other_than_english <-
+  get_acs(
+    geography = "county",
+    variable = "S1601_C01_003",
+    summary_var = "S1601_C01_001",
+    geometry = TRUE
+  ) |>
+    clean_names() |>
+    mutate(pct = estimate / summary_est) |>
+    select(name, pct) |>
+    st_transform(crs = 4326) |>
+    mutate(
+      text_label = str_glue(
+        "<b>{percent(pct, accuracy = 0.1)}</b> of the population of <b>{name}</b> speaks a language other than English"
+      )
+    ) |>
+    select(name, pct, text_label)
+```
+
+### Create a Continuous Palette
+
+```{r}
+pal <-
+  colorNumeric(
+    palette = "viridis",
+    domain = speak_language_other_than_english$pct
+  )
+
+leaflet() |>
+  addProviderTiles("CartoDB.Positron") |>
+  addPolygons(
+    data = speak_language_other_than_english,
+    fillColor = ~pal(pct),
+    color = "white",
+    weight = 0.75,
+    popup = ~text_label
+  )
+```
+
+### Create a Binned Color Palette
+
+```{r}
+binpal <-
+  colorBin(
+    palette = "viridis",
+    domain = speak_language_other_than_english$pct,
+    bins = 4
+  )
+
+leaflet() |>
+  addProviderTiles("CartoDB.Positron") |>
+  addPolygons(
+    data = speak_language_other_than_english,
+    fillColor = ~binpal(pct),
+    color = "white",
+    weight = 0.75,
+    popup = ~text_label
+  )
+```
+
+---
+
+### Specify Breaks
+
+```{r}
+binpal_explicit_bins <-
+  colorBin(
+    palette = "viridis",
+    domain = speak_language_other_than_english$pct,
+    bins = c(0, 0.25, 0.5, 0.75, 1)
+  )
+
+leaflet() |>
+  addProviderTiles("CartoDB.Positron") |>
+  addPolygons(
+    data = speak_language_other_than_english,
+    fillColor = ~binpal_explicit_bins(pct),
+    color = "white",
+    weight = 0.75,
+    popup = ~text_label
+  )
+```
+
+### Legends
+
+```{r}
+leaflet() |>
+  addProviderTiles("CartoDB.Positron") |>
+  addPolygons(
+    data = speak_language_other_than_english,
+    fillColor = ~binpal_explicit_bins(pct),
+    color = "white",
+    weight = 0.75,
+    popup = ~text_label
+  ) |>
+  addLegend(
+    position = "bottomright",
+    pal = binpal_explicit_bins,
+    values = speak_language_other_than_english$pct,
+    labFormat = labelFormat(
+      transform = function(x) x * 100,
+      suffix = "%"
+    ),
+    opacity = 0.5
+  )
+```

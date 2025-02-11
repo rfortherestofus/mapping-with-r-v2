@@ -1,0 +1,133 @@
+---
+title: Making Interactive Maps with Leaflet
+---
+
+
+```{r}
+library(leaflet)
+library(tidyverse)
+library(tidycensus)
+library(janitor)
+library(tigris)
+library(scales)
+library(sf)
+```
+
+```{r}
+options(tigris_use_cache = TRUE)
+```
+
+
+```{r}
+speak_language_other_than_english <-
+  get_acs(
+    geography = "county",
+    variable = "S1601_C01_003",
+    summary_var = "S1601_C01_001",
+    geometry = TRUE
+  ) |>
+    clean_names() |>
+    mutate(pct = estimate / summary_est) |>
+    select(name, pct)
+```
+
+
+```{r}
+speak_language_other_than_english |>
+  mapview::mapview()
+```
+
+### Backgrounds (Map Tiles)
+
+::: {.notes}
+https://leaflet-extras.github.io/leaflet-providers/preview/
+:::
+
+
+```{r}
+leaflet() |>
+  addTiles() |>
+  addMarkers(lng = 174.768, lat = -36.852, popup = "The birthplace of R")
+```
+
+---
+
+```{r}
+#| code-line-numbers: "2"
+leaflet() |>
+  addProviderTiles("CartoDB.Positron") |>
+  addMarkers(lng = 174.768, lat = -36.852, popup = "The birthplace of R")
+```
+
+---
+
+```{r}
+#| code-line-numbers: "2"
+leaflet() |>
+  addProviderTiles("Stadia.StamenToner") |>
+  addMarkers(lng = 174.768, lat = -36.852, popup = "The birthplace of R")
+```
+
+### Add Polygons
+
+
+```{r}
+speak_language_other_than_english_wgs84 <-
+  speak_language_other_than_english |>
+    st_transform(crs = 4326)
+```
+
+```{r}
+leaflet() |>
+  addTiles() |>
+  addPolygons(data = speak_language_other_than_english_wgs84)
+```
+
+#### Adjust Borders
+
+```{r}
+leaflet() |>
+  addTiles() |>
+  addPolygons(
+    data = speak_language_other_than_english_wgs84,
+    weight = 0
+  )
+```
+
+---
+
+```{r}
+leaflet() |>
+  addTiles() |>
+  addPolygons(
+    data = speak_language_other_than_english_wgs84,
+    weight = 1,
+    color = "red"
+  )
+```
+
+### Add Points
+
+```{r}
+portland_drinking_fountains <-
+  read_sf("data/Drinking_Fountains.geojson")
+```
+
+```{r}
+leaflet() |>
+  addProviderTiles("CartoDB.Positron") |>
+  addCircles(data = portland_drinking_fountains)
+```
+
+### Add Lines
+
+```{r}
+portland_speed_limits <-
+  read_sf("data/Speed_Limits.geojson")
+```
+
+```{r}
+leaflet() |>
+  addProviderTiles("CartoDB.Positron") |>
+  addPolylines(data = portland_speed_limits)
+```

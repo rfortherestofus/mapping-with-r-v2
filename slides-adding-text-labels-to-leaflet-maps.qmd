@@ -1,0 +1,88 @@
+---
+title: Adding Text Labels to {leaflet} Maps
+---
+
+
+```{r}
+library(leaflet)
+library(tidyverse)
+library(tidycensus)
+library(janitor)
+library(tigris)
+library(scales)
+library(sf)
+```
+
+```{r}
+speak_language_other_than_english_wgs84 <-
+  get_acs(
+    geography = "county",
+    variable = "S1601_C01_003",
+    summary_var = "S1601_C01_001",
+    geometry = TRUE
+  ) |>
+  clean_names() |>
+  mutate(pct = estimate / summary_est) |>
+  select(name, pct) |>
+  st_transform(crs = 4326)
+```
+
+### Text
+
+#### Labels
+
+```{r}
+leaflet() |>
+  addProviderTiles("CartoDB.Positron") |>
+  addPolygons(
+    data = speak_language_other_than_english_wgs84,
+    weight = 1
+  )
+```
+
+```{r}
+leaflet() |>
+  addProviderTiles("CartoDB.Positron") |>
+  addPolygons(
+    data = speak_language_other_than_english_wgs84,
+    weight = 1,
+    label = ~name
+  )
+```
+
+#### Popups
+
+```{r}
+leaflet() |>
+  addProviderTiles("CartoDB.Positron") |>
+  addPolygons(
+    data = speak_language_other_than_english_wgs84,
+    weight = 1,
+    popup = ~name
+  )
+```
+
+### Create Better Labels
+
+
+```{r}
+speak_language_other_than_english_wgs84_with_labels <-
+  speak_language_other_than_english_wgs84 |>
+  mutate(
+    text_label = str_glue(
+      "<b>{percent(pct, accuracy = 0.1)}</b> of the population of <b>{name}</b> speaks a language other than English"
+    )
+  )
+```
+
+---
+
+```{r}
+leaflet() |>
+  addProviderTiles("CartoDB.Positron") |>
+  addPolygons(
+    data = speak_language_other_than_english_wgs84_with_labels,
+    weight = 1,
+    popup = ~text_label
+  )
+```
