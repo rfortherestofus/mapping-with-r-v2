@@ -8,6 +8,9 @@ Things covered:
 - Turning sf objects into non-sf objects and mapping them
 
 
+https://bsky.app/profile/infobeautiful.bsky.social/post/3lhvuokmc5s2q
+
+
 ```{r}
 library(tidyverse)
 library(tidycensus)

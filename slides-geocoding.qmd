@@ -43,11 +43,11 @@ us_and_uk_head_residences |>
 ```{r}
 us_and_uk_head_residences_sf <-
   us_and_uk_head_residences |>
-    geocode(address) |>
-    st_as_sf(
-      coords = c("long", "lat"),
-      crs = 4326
-    )
+  geocode(address) |>
+  st_as_sf(
+    coords = c("long", "lat"),
+    crs = 4326
+  )
 ```
 
 ```{r}
@@ -158,3 +158,7 @@ my_address <-
 - Use the {tidygeocoder} package to geocode your address
 
 - Turn the result into an `sf` object with `st_as_sf()` and plot it on a map with `mapview::mapview()` to make sure it worked
+
+### Learn More
+
+Can also use mapboxapi: https://walker-data.com/mapboxapi/articles/geocoding.html

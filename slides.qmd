@@ -75,17 +75,13 @@ Do same thing I do in [book](https://book.rfortherestofus.com/maps.html#a-brief-
 
 <!-- {{< include slides-adding-text-labels-to-leaflet-maps.qmd >}} -->
 
-## Mapping Data to Aesthetic Properties with {leaflet} Maps {.inverse}
-
-<!-- {{< include slides-mapping-data-to-aesthetic-properties-with-leaflet-maps.qmd >}} -->
-
 ## Making Choropleth Maps with {leaflet} {.inverse}
 
 <!-- {{< include slides-making-choropleth-maps-with-leaflet.qmd >}} -->
 
 ## Making Dot and Bubble Maps with {leaflet} {.inverse}
 
-<!-- {{< include slides-making-bubble-maps-with-leaflet.qmd >}} -->
+<!-- {{< include slides-making-dot-and-bubble-maps-with-leaflet.qmd >}} -->
 
 ## Making Interactive Maps with Other Packages {.inverse}
 

@@ -1,5 +1,6 @@
 ---
 title: Making Interactive Maps with Leaflet
+output-location: slide
 ---
 
 
@@ -122,12 +123,44 @@ leaflet() |>
 ### Add Lines
 
 ```{r}
-portland_speed_limits <-
-  read_sf("data/Speed_Limits.geojson")
+library(tigris)
+
+multnomah_county_roads <-
+  roads(state = "OR", county = "Multnomah")
 ```
 
 ```{r}
 leaflet() |>
   addProviderTiles("CartoDB.Positron") |>
-  addPolylines(data = portland_speed_limits)
+  addPolylines(data = multnomah_county_roads)
+```
+
+### Show/Hide Layers
+
+```{r}
+leaflet() |>
+  addProviderTiles("CartoDB.Positron", group = "Map") |>
+  addProviderTiles("Esri.WorldImagery", group = "Satellite") |>
+  addCircles(
+    data = portland_drinking_fountains,
+    group = "Drinking Fountains",
+    color = "green"
+  ) |>
+  addPolylines(
+    data = multnomah_county_roads,
+    group = "Roads",
+    weight = 1,
+    color = "purple"
+  ) |>
+  addLayersControl(,
+    baseGroups = c(
+      "Map",
+      "Satellite"
+    ),
+    overlayGroups = c(
+      "Roads",
+      "Drinking Fountains"
+    )
+  ) |>
+  hideGroup("Roads")
 ```
