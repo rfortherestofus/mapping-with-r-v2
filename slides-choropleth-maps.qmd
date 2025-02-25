@@ -5,6 +5,8 @@ format:
     output-location: slide
 ---
 
+Show https://www.nytimes.com/interactive/2025/02/13/upshot/nih-trump-funding-cuts.html
+
 ```{r}
 library(tidyverse)
 library(tidycensus)

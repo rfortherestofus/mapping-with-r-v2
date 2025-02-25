@@ -150,6 +150,27 @@ ggplot() +
   facet_wrap(~variable)
 ```
 
+### Your Turn {.your-turn}
+
+1. Turn your refguees choropleth map from before into a bubble map
+
+```{r}
+read_sf(
+  "https://raw.githubusercontent.com/rfortherestofus/mapping-with-r-v2/refs/heads/main/data/refugees.geojson"
+) |>
+  st_point_on_surface() |>
+  write_sf("data/refugees_country_centroids.geojson")
+```
+
+```{r}
+read_sf(
+  "https://raw.githubusercontent.com/rfortherestofus/mapping-with-r-v2/refs/heads/main/data/refugees_country_centroids.geojson"
+) |>
+  st_point_on_surface() |>
+  ggplot() +
+  geom_sf(aes(size = number_of_refugees))
+```
+
 
 ## Learn More
 

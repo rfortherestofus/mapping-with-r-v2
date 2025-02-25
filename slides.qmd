@@ -83,9 +83,9 @@ Do same thing I do in [book](https://book.rfortherestofus.com/maps.html#a-brief-
 
 <!-- {{< include slides-making-dot-and-bubble-maps-with-leaflet.qmd >}} -->
 
-## Making Interactive Maps with Other Packages {.inverse}
+## Making Interactive Maps with {mapgl} {.inverse}
 
-<!-- {{< include slides-making-interactive-maps-with-other-packages.qmd >}} -->
+<!-- {{< include slides-making-interactive-maps-with-mapgl.qmd >}} -->
 
 # Geospatial Data Analysis
 

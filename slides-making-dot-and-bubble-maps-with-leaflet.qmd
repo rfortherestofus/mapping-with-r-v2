@@ -50,7 +50,7 @@ leaflet() |>
   addCircles(
     data = portland_drinking_fountains,
     stroke = FALSE,
-    fillColor = ~ pal_discrete(FOUNTAINSTYLE),
+    fillColor = ~pal_discrete(FOUNTAINSTYLE),
     radius = 10,
     fillOpacity = 1
   )
@@ -61,7 +61,7 @@ leaflet() |>
 ```{r}
 oregon_places <-
   read_sf("data/oregon-places.geojson") |>
-  st_transform(crs = 4326)
+    st_transform(crs = 4326)
 
 oregon_places |>
   slice_max(order_by = population, n = 1)
@@ -72,7 +72,7 @@ leaflet() |>
   addProviderTiles("CartoDB.Positron") |>
   addCircles(
     data = oregon_places,
-    radius = ~ population / 100,
+    radius = ~population / 100,
     label = ~name,
     stroke = FALSE,
     fillOpacity = 0.5
@@ -85,3 +85,5 @@ leaflet() |>
     breaks = 10
   )
 ```
+
+### Your Turn {.your-turn}

@@ -21,16 +21,16 @@ speak_language_other_than_english <-
     summary_var = "S1601_C01_001",
     geometry = TRUE
   ) |>
-    clean_names() |>
-    mutate(pct = estimate / summary_est) |>
-    select(name, pct) |>
-    st_transform(crs = 4326) |>
-    mutate(
-      text_label = str_glue(
-        "<b>{percent(pct, accuracy = 0.1)}</b> of the population of <b>{name}</b> speaks a language other than English"
-      )
-    ) |>
-    select(name, pct, text_label)
+  clean_names() |>
+  mutate(pct = estimate / summary_est) |>
+  select(name, pct) |>
+  st_transform(crs = 4326) |>
+  mutate(
+    text_label = str_glue(
+      "<b>{percent(pct, accuracy = 0.1)}</b> of the population of <b>{name}</b> speaks a language other than English"
+    )
+  ) |>
+  select(name, pct, text_label)
 ```
 
 ### Create a Continuous Palette
@@ -46,7 +46,7 @@ leaflet() |>
   addProviderTiles("CartoDB.Positron") |>
   addPolygons(
     data = speak_language_other_than_english,
-    fillColor = ~pal(pct),
+    fillColor = ~ pal(pct),
     color = "white",
     weight = 0.75,
     popup = ~text_label
@@ -67,7 +67,7 @@ leaflet() |>
   addProviderTiles("CartoDB.Positron") |>
   addPolygons(
     data = speak_language_other_than_english,
-    fillColor = ~binpal(pct),
+    fillColor = ~ binpal(pct),
     color = "white",
     weight = 0.75,
     popup = ~text_label
@@ -90,7 +90,7 @@ leaflet() |>
   addProviderTiles("CartoDB.Positron") |>
   addPolygons(
     data = speak_language_other_than_english,
-    fillColor = ~binpal_explicit_bins(pct),
+    fillColor = ~ binpal_explicit_bins(pct),
     color = "white",
     weight = 0.75,
     popup = ~text_label
@@ -104,7 +104,7 @@ leaflet() |>
   addProviderTiles("CartoDB.Positron") |>
   addPolygons(
     data = speak_language_other_than_english,
-    fillColor = ~binpal_explicit_bins(pct),
+    fillColor = ~ binpal_explicit_bins(pct),
     color = "white",
     weight = 0.75,
     popup = ~text_label
@@ -120,3 +120,5 @@ leaflet() |>
     opacity = 0.5
   )
 ```
+
+### Your Turn {.your-turn}

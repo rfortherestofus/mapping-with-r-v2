@@ -1,0 +1,174 @@
+---
+title: Making Interactive Maps with {mapgl}
+---
+
+```{r}
+library(leaflet)
+library(tidyverse)
+library(tidycensus)
+library(janitor)
+library(tigris)
+library(scales)
+library(sf)
+library(mapgl)
+```
+
+### {mapgl} {.inverse}
+
+::: {.notes}
+Show mapbox website
+:::
+
+### Get Mapbox Access Token
+
+::: {.notes}
+Show creating account and access token
+Add access token to Renviron
+:::
+
+### Basic Map {.inverse}
+
+#### Styles {.inverse}
+
+::: {.notes}
+Mention how can't render Mapbox maps in Quarto at the moment (https://github.com/walkerke/mapgl/issues/3) but cant use maplibre
+:::
+
+---
+
+```{r}
+mapboxgl(style = mapbox_style("light"))
+```
+
+---
+
+```{r}
+mapboxgl(style = mapbox_style("dark"))
+```
+
+---
+
+```{r}
+mapboxgl(style = mapbox_style("outdoors"))
+```
+
+---
+
+```{r}
+maplibre()
+```
+
+---
+
+```{r}
+maplibre(style = carto_style("positron"))
+```
+
+---
+```{r}
+maplibre(style = carto_style("dark-matter"))
+```
+
+#### Adjust Center and Zoom
+
+```{r}
+mapboxgl(
+  mapbox_style("light"),
+  center = c(-43.23412, -22.91370)
+)
+```
+
+---
+
+```{r}
+mapboxgl(
+  mapbox_style("light"),
+  center = c(-43.23412, -22.91370),
+  zoom = 5
+)
+```
+
+#### Add Layers
+
+```{r}
+speak_language_other_than_english_wgs84_with_labels <-
+  read_sf("data/speak_language_other_than_english_wgs84_with_labels.geojson")
+```
+
+---
+
+```{r}
+mapboxgl(
+  mapbox_style("light"),
+  center = c(-100.29957845401096, 38.93484429077689),
+  zoom = 2
+) |>
+  add_fill_layer(
+    id = "speak_language_other_than_english_wgs84_with_labels",
+    source = speak_language_other_than_english_wgs84_with_labels
+  )
+```
+
+---
+
+```{r}
+mapboxgl(
+  mapbox_style("light"),
+  center = c(-100.29957845401096, 38.93484429077689),
+  zoom = 2
+) |>
+  add_fill_layer(
+    id = "speak_language_other_than_english_wgs84_with_labels",
+    source = speak_language_other_than_english_wgs84_with_labels,
+    fill_color = interpolate(
+      column = "pct",
+      values = c(0, 1),
+      stops = c("lightblue", "darkblue"),
+      na_color = "lightgrey"
+    ),
+    fill_opacity = 1
+  )
+```
+
+```{r}
+mapboxgl(
+  mapbox_style("light"),
+  center = c(-100.29957845401096, 38.93484429077689),
+  zoom = 2
+) |>
+  add_fill_layer(
+    id = "speak_language_other_than_english_wgs84_with_labels",
+    source = speak_language_other_than_english_wgs84_with_labels,
+    fill_color = interpolate(
+      column = "pct",
+      values = c(0, 1),
+      stops = c("lightblue", "darkblue"),
+      na_color = "lightgrey"
+    ),
+    popup = "text_label",
+    fill_opacity = 1
+  )
+```
+
+### Other Layers {.inverse}
+
+::: {.notes}
+Show layers on https://walker-data.com/mapgl/articles/layers-overview.html
+:::
+
+### Other Things You Can Do with {mapgl}
+
+```{r}
+mapboxgl() |>
+  fly_to(
+    center = c(2.1228412549747344, 41.3812461533571),
+    zoom = 16,
+    pitch = 25
+  )
+```
+
+### Your Turn {.your-turn}
+
+### Learn More
+
+- https://qfes.github.io/rdeck/

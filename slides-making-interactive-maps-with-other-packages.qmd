@@ -1,5 +1,0 @@
-mapdeck
-
-https://qfes.github.io/rdeck/
-
-mapboxapi/mapgl

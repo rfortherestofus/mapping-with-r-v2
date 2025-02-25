@@ -216,9 +216,9 @@ library(tidyverse)
 
 median_household_income_variable <-
   acs_variables |>
-    filter(str_detect(label, "Median household income")) |>
-    filter(geography == "county") |>
-    pull(name)
+  filter(str_detect(label, "Median household income")) |>
+  filter(geography == "county") |>
+  pull(name)
 ```
 
 ---
@@ -263,8 +263,10 @@ median_household_income_sf |>
 
 - Use the {rnaturalearth} or {rgeoboundaries} package to download data for all countries in South America
 - Use the {mapview} package to make a map in order to ensure the data was downloaded correctly
-- If you are in the US (or work with US data), try out downloading data using {tidycensus}
+- If you are in the US (or work with US data), try out downloading data using {tidycensus} TODO: Add some sample variables for them to work with
 
 #### Learn More
 
 https://wiki.openstreetmap.org/wiki/Disputed_territories
+
+https://www.andrewheiss.com/blog/2025/02/13/natural-earth-crimea/
