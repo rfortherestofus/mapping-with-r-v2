@@ -17,6 +17,8 @@ library(sf)
 
 ::: {.notes}
 https://cdn.bsky.app/img/feed_fullsize/plain/did:plc:qhkyl7b5yeg2o327qhijcz5v/bafkreiaemp2c2d5bksl4dz46l6tjgmtewqhlcq3wa7stvj3535jxmopm6y@jpeg (source: https://bsky.app/profile/higsch.com/post/3lgzm5mftyc2x)
+
+https://www.axios.com/2025/02/24/where-college-educated-americans-are-moving
 :::
 
 ```{r}
@@ -163,12 +165,19 @@ read_sf(
 ```
 
 ```{r}
-read_sf(
-  "https://raw.githubusercontent.com/rfortherestofus/mapping-with-r-v2/refs/heads/main/data/refugees_country_centroids.geojson"
-) |>
-  st_point_on_surface() |>
-  ggplot() +
-  geom_sf(aes(size = number_of_refugees))
+refugees_by_country <-
+  read_sf(
+    "https://raw.githubusercontent.com/rfortherestofus/mapping-with-r-v2/refs/heads/main/data/refugees.geojson"
+  )
+
+refugees_country_centroids <-
+  read_sf(
+    "https://raw.githubusercontent.com/rfortherestofus/mapping-with-r-v2/refs/heads/main/data/refugees_country_centroids.geojson"
+  )
+
+ggplot() +
+  geom_sf(data = refugees_by_country) +
+  geom_sf(data = refugees_country_centroids, aes(size = number_of_refugees))
 ```
 
 

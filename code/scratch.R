@@ -1,3 +1,91 @@
+library(sf)
+library(tidyverse)
+library(tidycensus)
+library(janitor)
+
+corners_improved <-
+  read_sf("data/Corners_Improved.geojson") |>
+  clean_names() |>
+  clean_names() |>
+  st_point_on_surface() |>
+  select(objectid, ramp_style)
+
+corners_improved |>
+  mutate(
+    ramp_style_dichotomous = case_when(
+      ramp_style %in% c("NONE", "UNKNOWN") ~ "Unimproved",
+      .default = "Improved"
+    )
+  ) |>
+  write_sf("data/improved_corners.geojson")
+
+# city_council_districts <-
+read_sf("data/Portland_City_Council_Districts.geojson") |>
+  clean_names() |>
+  select(district) |>
+  mutate(district = str_glue("District {district}")) |>
+  write_sf("data/city_council_districts.geojson")
+
+city_council_districts <-
+  read_sf("data/city_council_districts.geojson")
+
+city_councilors <-
+  tibble::tribble(
+    ~councilor,
+    ~district,
+    "Candace Avalos",
+    "District 1",
+    "Jamie Dunphy",
+    "District 1",
+    "Loretta Smith",
+    "District 1",
+    "Dan Ryan",
+    "District 2",
+    "Elana Pirtle-Guiney",
+    "District 2",
+    "Sameer Kanal",
+    "District 2",
+    "Angelita Morillo",
+    "District 3",
+    "Steve Novick",
+    "District 3",
+    "Tiffany Koyama Lane",
+    "District 3",
+    "Eric Zimmerman",
+    "District 4",
+    "Mitch Green",
+    "District 4",
+    "Olivia Clark",
+    "District 4"
+  )
+
+city_councilors |>
+  write_csv("data/city_councilors.csv")
+
+
+corners_improved |>
+  mapview::mapview()
+
+# median_household_income <-
+#   get_acs(
+#     geography = "tract",
+#     state = "OR",
+#     variable = "B19013_001",
+#     geometry = TRUE
+#   ) |>
+#   clean_names() |>
+#   select(geoid, estimate) |>
+#   st_transform(4326)
+
+st_join(
+  city_council_districts,
+  corners_improved
+) |>
+  select(district, objectid, ramp_style) |>
+  st_drop_geometry() |>
+  count(ramp_style)
+
+
 # remotes::install_gitlab("dickoa/rgeoboundaries")
 library(rgeoboundaries)
 library(sf)
@@ -141,4 +229,9 @@ p2 <- ggplot() +
     color = "white"
   )
 
-cowplot::plot_grid(p1, p2, nrow = 2, labels = c("unequal hexagons", "equal hexagons"))
+cowplot::plot_grid(
+  p1,
+  p2,
+  nrow = 2,
+  labels = c("unequal hexagons", "equal hexagons")
+)

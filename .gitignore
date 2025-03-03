@@ -52,3 +52,4 @@ rsconnect/
 data/Corners_Improved.geojson
 rendered-slides/
 /_freeze
+data/improved_corners_polygons.geojson

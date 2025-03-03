@@ -1,0 +1,106 @@
+---
+title: Heatmaps
+---
+
+```{r}
+library(sf)
+library(tidyverse)
+library(janitor)
+
+improved_corners <-
+  read_sf("data/improved_corners.geojson")
+
+improved_corners
+```
+
+
+```{r}
+portland_boundaries <-
+  read_sf("data/Portland_Boundaries.geojson") |>
+  clean_names() |>
+  filter(cityname == "Portland") |>
+  st_make_valid()
+```
+
+```{r}
+portland_boundaries |>
+  st_make_grid()
+```
+
+```{r}
+portland_boundaries |>
+  st_make_grid(n = c(20, 20))
+```
+
+```{r}
+portland_grid <-
+  portland_boundaries |>
+  st_make_grid(n = c(50, 50))
+```
+
+```{r}
+ggplot() +
+  geom_sf(data = portland_boundaries) +
+  geom_sf(data = portland_grid, alpha = 0.5) +
+  theme_void()
+```
+
+```{r}
+ggplot() +
+  geom_sf(data = portland_boundaries) +
+  geom_sf(data = portland_grid, alpha = 0.5)
+```
+
+```{r}
+portland_grid_map <-
+  st_intersection(portland_boundaries, portland_grid) |>
+  mutate(grid_id = row_number()) |>
+  select(grid_id)
+```
+
+```{r}
+ggplot() +
+  geom_sf(data = portland_grid_map) +
+  theme_void()
+```
+
+```{r}
+improved_corners_grid <-
+  st_join(
+    portland_grid_map,
+    improved_corners
+  )
+```
+
+```{r}
+improved_corners_grid_pct <-
+  improved_corners_grid |>
+  count(grid_id, ramp_style) |>
+  # complete(grid_id, ramp_style) |>
+  group_by(grid_id) |>
+  mutate(pct = n / sum(n, na.rm = TRUE)) |>
+  ungroup() |>
+  filter(ramp_style == "Unimproved")
+```
+
+```{r}
+library(scales)
+
+ggplot() +
+  geom_sf(data = portland_boundaries) +
+  geom_sf(
+    data = improved_corners_grid_pct,
+    aes(fill = pct),
+    color = "white"
+  ) +
+  # geom_sf(data = improved_corners, alpha = 0.1) +
+  guides(
+    fill = guide_colorsteps(show.limits = TRUE)
+  ) +
+  scale_fill_viridis_c(
+    option = "C",
+    limits = c(0, 1),
+    labels = percent_format()
+  ) +
+  theme_void()
+```

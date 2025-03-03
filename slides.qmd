@@ -89,21 +89,21 @@ Do same thing I do in [book](https://book.rfortherestofus.com/maps.html#a-brief-
 
 # Geospatial Data Analysis
 
-## Joining Data Frmes with sf Objects {.inverse}
+## Joining Data Frames with sf Objects {.inverse}
 
 <!-- {{< include slides-joining-data-frames-with-sf-objects.qmd >}} -->
 
-## Joining Two sf Objects {.inverse}
+## Spatial Joins {.inverse}
 
-<!-- {{< include slides-joining-two-sf-objects.qmd >}} -->
+<!-- {{< include slides-spatial-joins.qmd >}} -->
+ 
+## Spatial Filters {.inverse}
 
-## Combining Multiple sf Objects {.inverse}
+<!-- {{< include slides-spatial-filters.qmd >}} -->
 
-<!-- {{< include slides-combining-multiple-sf-objects.qmd >}} -->
+## Combining Multiple Geometries {.inverse}
 
-## Spatial Overlays {.inverse}
-
-<!-- {{< include slides-spatial-overlays.qmd >}} -->
+<!-- {{< include slides-combining-multiple-geometries.qmd >}} -->
 
 # Maps that Require Complicated Geospatial Analysis
 

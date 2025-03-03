@@ -211,8 +211,7 @@ continental_us_states |>
   st_transform(us_crs) |>
   ggplot() +
   geom_sf()
-`
-``
+```
 :::
 
 ::::

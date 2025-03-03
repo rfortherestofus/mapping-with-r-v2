@@ -1,0 +1,86 @@
+---
+title: Joining Data Frames with `sf` Objects
+---
+
+### Import CSV
+
+```{r}
+library(tidyverse)
+
+city_councilors <-
+  read_csv("data/city_councilors.csv")
+```
+
+```{r}
+city_councilors
+```
+
+### Import `sf` Object
+
+
+```{r}
+library(sf)
+
+city_council_districts <-
+  read_sf("data/city_council_districts.geojson")
+
+city_council_districts
+```
+
+---
+
+```{r}
+library(mapview)
+
+city_council_districts |>
+  mapview()
+```
+
+### Joing CSV and `sf` Object {.inverse}
+
+#### `left_join()`
+
+```{r}
+left_join(
+  city_councilors,
+  city_council_districts,
+  join_by(district)
+)
+```
+
+---
+
+```{r}
+left_join(
+  city_councilors,
+  city_council_districts,
+  join_by(district)
+) |>
+  st_as_sf()
+```
+
+---
+
+```{r}
+left_join(
+  city_councilors,
+  city_council_districts,
+  join_by(district)
+) |>
+  st_as_sf() |>
+  mapview()
+```
+
+#### `right_join()`
+
+```{r}
+right_join(
+  city_councilors,
+  city_council_districts,
+  join_by(district)
+) |>
+  st_as_sf()
+```
+
+
+### Your Turn {.your-turn}

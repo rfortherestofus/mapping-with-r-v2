@@ -27,9 +27,9 @@ speak_language_other_than_english <-
     summary_var = "S1601_C01_001",
     geometry = TRUE
   ) |>
-    clean_names() |>
-    mutate(pct = estimate / summary_est) |>
-    select(name, pct)
+  clean_names() |>
+  mutate(pct = estimate / summary_est) |>
+  select(name, pct)
 ```
 
 
@@ -75,7 +75,7 @@ leaflet() |>
 ```{r}
 speak_language_other_than_english_wgs84 <-
   speak_language_other_than_english |>
-    st_transform(crs = 4326)
+  st_transform(crs = 4326)
 ```
 
 ```{r}
