@@ -15,16 +15,7 @@ library(sf)
 
 ```{r}
 speak_language_other_than_english_wgs84 <-
-  get_acs(
-    geography = "county",
-    variable = "S1601_C01_003",
-    summary_var = "S1601_C01_001",
-    geometry = TRUE
-  ) |>
-    clean_names() |>
-    mutate(pct = estimate / summary_est) |>
-    select(name, pct) |>
-    st_transform(crs = 4326)
+  read_sf("data/speak_language_other_than_english_wgs84.geojson")
 ```
 
 ### Text
@@ -39,6 +30,8 @@ leaflet() |>
     weight = 1
   )
 ```
+
+---
 
 ```{r}
 leaflet() |>
@@ -68,11 +61,11 @@ leaflet() |>
 ```{r}
 speak_language_other_than_english_wgs84_with_labels <-
   speak_language_other_than_english_wgs84 |>
-    mutate(
-      text_label = str_glue(
-        "<b>{percent(pct, accuracy = 0.1)}</b> of the population of <b>{name}</b> speaks a language other than English"
-      )
+  mutate(
+    text_label = str_glue(
+      "<b>{percent(pct, accuracy = 0.1)}</b> of the population of <b>{name}</b> speaks a language other than English"
     )
+  )
 ```
 
 ---
@@ -87,4 +80,15 @@ leaflet() |>
   )
 ```
 
+```{r}
+#| echo: false
+#| eval: false
+
+speak_language_other_than_english_wgs84_with_labels |>
+  select(name, pct, text_label) |>
+  write_sf("data/speak_language_other_than_english_wgs84_with_labels.geojson")
+```
+
 ### Your Turn {.your-turn}
+
+- Using the code to make your map from the last lesson on refugee populations, add a label and/or popup that show the number of refugees from each country.

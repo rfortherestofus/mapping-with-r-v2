@@ -46,8 +46,6 @@ read_sf("data/Portland_City_Council_Districts.shp")
 
 ---
 
-TODO: center slide
-
 [![](assets/shapefile-airplane-meme.jpg)](https://www.reddit.com/r/gis/comments/sbp8r9/please_find_the_shapefile_attached/)
 
 ---
@@ -68,14 +66,12 @@ read_sf("data/Portland_City_Council_Districts.shp")
 ---
 
 ```{r}
-read_sf("data/Portland_City_Council_Districts.geojson")
+read_sf("data/portland_city_council_districts.geojson")
 ```
 
 ### Geospatial Data Formats: Others {.inverse}
 
 ---
-
-TODO: center slide
 
 [![](assets/geospatial-data-formats.png)](https://r.geocompx.org/read-write)
 
@@ -86,7 +82,17 @@ TODO: center slide
 
 ### Your Turn {.your-turn}
 
-- [Download data (ESRI Shapefile or GeoJSON) on Portland sextants](https://gis-pdx.opendata.arcgis.com/datasets/PDX::portland-administrative-sextants/explore)
+```{r}
+# library(fs)
+# library(zip)
+
+# download.file(
+#   url = "https://hub.arcgis.com/api/v3/datasets/418ceb86c89b45a39ac0e27bc2722393_233/downloads/data?format=shp&spatialRefId=3857&where=1%3D1",
+#   destfile = "data/portland_sextants.zip"
+# )
+```
+
+- [Download data (ESRI Shapefile or GeoJSON) on Portland sextants](https://github.com/rfortherestofus/mapping-with-r-v2/raw/refs/heads/main/data/portland_sextants.zip) ([source](https://gis-pdx.opendata.arcgis.com/datasets/PDX::portland-administrative-sextants/explore?location=45.544781%2C-122.667200%2C11.81))
 
 - Import the data in R using the `read_sf()` function from the `sf` package and save it as `portland_sextants`
 

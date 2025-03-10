@@ -8,10 +8,6 @@ title: Simple Features Data
 
 [source](https://datavizs22.classes.andrewheiss.com/slides/12-slides.pdf)
 
-### Learn More
-
-https://r-spatial.github.io/sf/articles/sf1.html
-
 ### Geometry Type
 
 #### `POLYGON`

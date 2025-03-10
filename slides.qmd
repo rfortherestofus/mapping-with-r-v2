@@ -13,15 +13,9 @@ options(pillar.sigfig = 7)
 
 {{< include slides-welcome-to-mapping.qmd >}}
 
-# Geospatial Data: Vector Data {.inverse}
+# Geospatial Data {.inverse}
 
 ## Simple Features Data {.inverse}
-
-::: {.notes}
-Talk about how it has become standard
-
-Do same thing I do in [book](https://book.rfortherestofus.com/maps.html#a-brief-primer-on-geospatial-data)
-:::
 
 {{< include slides-sf-data.qmd >}}
 
@@ -55,8 +49,6 @@ Do same thing I do in [book](https://book.rfortherestofus.com/maps.html#a-brief-
 
 {{< include slides-dot-and-bubble-maps.qmd >}}
 
-
-
 ## Adding Text to Maps {.inverse}
 
 {{< include slides-adding-text-to-maps.qmd >}}
@@ -69,61 +61,55 @@ Do same thing I do in [book](https://book.rfortherestofus.com/maps.html#a-brief-
 
 ## Making Interactive Maps with {leaflet} {.inverse}
 
-<!-- {{< include slides-making-interactive-maps-with-leaflet.qmd >}} -->
+{{< include slides-making-interactive-maps-with-leaflet.qmd >}}
 
 ## Adding Text Labels to {leaflet} Maps {.inverse}
 
-<!-- {{< include slides-adding-text-labels-to-leaflet-maps.qmd >}} -->
+{{< include slides-adding-text-labels-to-leaflet-maps.qmd >}}
 
 ## Making Choropleth Maps with {leaflet} {.inverse}
 
-<!-- {{< include slides-making-choropleth-maps-with-leaflet.qmd >}} -->
+{{< include slides-making-choropleth-maps-with-leaflet.qmd >}}
 
 ## Making Dot and Bubble Maps with {leaflet} {.inverse}
 
-<!-- {{< include slides-making-dot-and-bubble-maps-with-leaflet.qmd >}} -->
+{{< include slides-making-dot-and-bubble-maps-with-leaflet.qmd >}}
 
 ## Making Interactive Maps with {mapgl} {.inverse}
 
-<!-- {{< include slides-making-interactive-maps-with-mapgl.qmd >}} -->
+{{< include slides-making-interactive-maps-with-mapgl.qmd >}}
 
 # Geospatial Data Analysis
 
 ## Joining Data Frames with sf Objects {.inverse}
 
-<!-- {{< include slides-joining-data-frames-with-sf-objects.qmd >}} -->
+{{< include slides-joining-data-frames-with-sf-objects.qmd >}}
 
 ## Spatial Joins {.inverse}
 
-<!-- {{< include slides-spatial-joins.qmd >}} -->
+{{< include slides-spatial-joins.qmd >}}
  
 ## Spatial Filters {.inverse}
 
-<!-- {{< include slides-spatial-filters.qmd >}} -->
+{{< include slides-spatial-filters.qmd >}}
 
 ## Combining Multiple Geometries {.inverse}
 
-<!-- {{< include slides-combining-multiple-geometries.qmd >}} -->
+{{< include slides-combining-multiple-geometries.qmd >}}
 
 # Maps that Require Complicated Geospatial Analysis
 
 ## Heatmaps {.inverse}
 
-<!-- {{< include slides-heatmaps.qmd >}} -->
+{{< include slides-heatmaps.qmd >}}
 
 ## Flow Maps
 
-<!-- {{< include slides-flow-maps.qmd >}} -->
-
-# Raster Data {.inverse}
+{{< include slides-flow-maps.qmd >}}
 
 # Wrapping Up {.inverse}
 
-## Should This Be a Map? {.inverse}
-
-<!-- {{< include slides-should-this-be-a-map.qmd >}} -->
-
 ## Wrapping up Mapping with R {.inverse}
 
-<!-- {{< include slides-wrapping-up-mapping-with-r.qmd >}} -->
+{{< include slides-wrapping-up-mapping-with-r.qmd >}}
 

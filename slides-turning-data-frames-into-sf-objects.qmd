@@ -16,9 +16,11 @@ library(sf)
 library(janitor)
 
 portland_corners <-
-  read_sf("data/Corners_Improved.geojson") |>
-    st_make_valid() |>
-    st_centroid()
+  read_sf(
+    "https://hub.arcgis.com/api/v3/datasets/2110697e9c1e42f3a87f75c310da64f1_78/downloads/data?format=geojson&spatialRefId=4326&where=1%3D1"
+  ) |>
+  st_make_valid() |>
+  st_centroid()
 
 portland_corners |>
   clean_names() |>
@@ -52,7 +54,7 @@ Talk about crs: show how not adding CRS makes it not show up correctly on map
 
 ```{r}
 portland_corners_csv <-
-  read_csv("data/portland-corners.csv")
+  read_csv("data/portland_corners.csv")
 ```
 
 . . .
@@ -65,10 +67,10 @@ portland_corners_csv
 ```{r}
 portland_corners_sf <-
   portland_corners_csv |>
-    st_as_sf(
-      coords = c("longitude", "latitude"),
-      crs = 4326
-    )
+  st_as_sf(
+    coords = c("longitude", "latitude"),
+    crs = 4326
+  )
 ```
 
 
@@ -85,11 +87,9 @@ portland_corners_sf |>
   mapview::mapview()
 ```
 
-
-
 ### Your Turn {.your-turn}
 
-1. [Download this CSV](https://raw.githubusercontent.com/rfortherestofus/mapping-with-r-v2/refs/heads/main/data/portland-traffic-signals.csv) of traffic signal data for the city of Portland
+1. [Download this CSV](https://raw.githubusercontent.com/rfortherestofus/mapping-with-r-v2/refs/heads/main/data/portland_traffic_signals.csv) of traffic signal data for the city of Portland
 
 1. Import the CSV and turn it into an `sf` object using `st_as_sf()`
 

@@ -1,11 +1,11 @@
 ---
 title: Choropleth Maps
-format:
-  rfortherestofus-slides-revealjs:
-    output-location: slide
+output-location: slide
 ---
 
+::: {.notes}
 Show https://www.nytimes.com/interactive/2025/02/13/upshot/nih-trump-funding-cuts.html
+:::
 
 ```{r}
 library(tidyverse)
@@ -44,7 +44,7 @@ speak_language_other_than_english |>
 ### Deal with Borders
 
 ```{r}
-#| code-line-numbers: "10,11"
+#| code-line-numbers: "6,7"
 speak_language_other_than_english |>
   shift_geometry() |>
   ggplot() +
@@ -59,11 +59,16 @@ speak_language_other_than_english |>
   theme_void()
 ```
 
+::: {.notes}
+Alternative approach: https://www.andrewheiss.com/blog/2025/02/19/ggplot-histogram-legend/#extract-interior-state-borders
+:::
+
 ### Adjust Legend
 
 #### Use `guide_colorsteps`
 
 ```{r}
+#| code-line-numbers: "11,12"
 speak_language_other_than_english |>
   shift_geometry() |>
   ggplot() +
@@ -89,6 +94,7 @@ speak_language_other_than_english |>
 #### Adjust legend width and height
 
 ```{r}
+#| code-line-numbers: "23,24"
 speak_language_other_than_english |>
   shift_geometry() |>
   ggplot() +
@@ -120,6 +126,7 @@ speak_language_other_than_english |>
 
 
 ```{r}
+#| code-line-numbers: "22"
 library(scales)
 
 speak_language_other_than_english |>
@@ -169,11 +176,12 @@ speak_language_other_than_english |>
 
 Improve the map you made in the last lesson on the number of refugees from each country in the world by:
 
-- Using a different fill and color scale
-- Improving the legend by using colorsteps
-- Improving the legend by adjusting its width and height
-- Improving the legend by making nicely formatted values (`scales::comma_format()` is your friend here)
+1. Using a different fill and color scale
+1. Improving the legend by using colorsteps
+1. Improving the legend by adjusting its width and height
+1. Improving the legend by making nicely formatted values (`scales::comma_format()` is your friend here)
 
 ### Learn More
 
 - biscale maps
+- https://www.andrewheiss.com/blog/2025/02/19/ggplot-histogram-legend/#extract-interior-state-borders

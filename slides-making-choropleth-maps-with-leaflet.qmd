@@ -14,23 +14,12 @@ library(sf)
 
 
 ```{r}
-speak_language_other_than_english <-
-  get_acs(
-    geography = "county",
-    variable = "S1601_C01_003",
-    summary_var = "S1601_C01_001",
-    geometry = TRUE
-  ) |>
-  clean_names() |>
-  mutate(pct = estimate / summary_est) |>
-  select(name, pct) |>
-  st_transform(crs = 4326) |>
-  mutate(
-    text_label = str_glue(
-      "<b>{percent(pct, accuracy = 0.1)}</b> of the population of <b>{name}</b> speaks a language other than English"
-    )
-  ) |>
-  select(name, pct, text_label)
+speak_language_other_than_english_wgs84_with_labels <-
+  read_sf("data/speak_language_other_than_english_wgs84_with_labels.geojson")
+```
+
+```{r}
+speak_language_other_than_english_wgs84_with_labels
 ```
 
 ### Create a Continuous Palette
@@ -39,13 +28,14 @@ speak_language_other_than_english <-
 pal <-
   colorNumeric(
     palette = "viridis",
-    domain = speak_language_other_than_english$pct
+    domain = speak_language_other_than_english_wgs84_with_labels$pct
   )
 
 leaflet() |>
+  setView(-93.65, 42.0285, zoom = 2) |>
   addProviderTiles("CartoDB.Positron") |>
   addPolygons(
-    data = speak_language_other_than_english,
+    data = speak_language_other_than_english_wgs84_with_labels,
     fillColor = ~ pal(pct),
     color = "white",
     weight = 0.75,
@@ -59,14 +49,15 @@ leaflet() |>
 binpal <-
   colorBin(
     palette = "viridis",
-    domain = speak_language_other_than_english$pct,
+    domain = speak_language_other_than_english_wgs84_with_labels$pct,
     bins = 4
   )
 
 leaflet() |>
+  setView(-93.65, 42.0285, zoom = 2) |>
   addProviderTiles("CartoDB.Positron") |>
   addPolygons(
-    data = speak_language_other_than_english,
+    data = speak_language_other_than_english_wgs84_with_labels,
     fillColor = ~ binpal(pct),
     color = "white",
     weight = 0.75,
@@ -82,14 +73,15 @@ leaflet() |>
 binpal_explicit_bins <-
   colorBin(
     palette = "viridis",
-    domain = speak_language_other_than_english$pct,
+    domain = speak_language_other_than_english_wgs84_with_labels$pct,
     bins = c(0, 0.25, 0.5, 0.75, 1)
   )
 
 leaflet() |>
+  setView(-93.65, 42.0285, zoom = 2) |>
   addProviderTiles("CartoDB.Positron") |>
   addPolygons(
-    data = speak_language_other_than_english,
+    data = speak_language_other_than_english_wgs84_with_labels,
     fillColor = ~ binpal_explicit_bins(pct),
     color = "white",
     weight = 0.75,
@@ -101,9 +93,10 @@ leaflet() |>
 
 ```{r}
 leaflet() |>
+  setView(-93.65, 42.0285, zoom = 2) |>
   addProviderTiles("CartoDB.Positron") |>
   addPolygons(
-    data = speak_language_other_than_english,
+    data = speak_language_other_than_english_wgs84_with_labels,
     fillColor = ~ binpal_explicit_bins(pct),
     color = "white",
     weight = 0.75,
@@ -112,7 +105,7 @@ leaflet() |>
   addLegend(
     position = "bottomright",
     pal = binpal_explicit_bins,
-    values = speak_language_other_than_english$pct,
+    values = speak_language_other_than_english_wgs84_with_labels$pct,
     labFormat = labelFormat(
       transform = function(x) x * 100,
       suffix = "%"
@@ -122,3 +115,5 @@ leaflet() |>
 ```
 
 ### Your Turn {.your-turn}
+
+- Using the code to make your map from the last lesson on refugee populations, turn your map into a choropleth, with different shading for countries with higher refugee populations. 

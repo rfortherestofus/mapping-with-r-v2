@@ -4,7 +4,14 @@ output-location: slide
 ---
 
 
+
 ```{r}
+options(tigris_use_cache = TRUE)
+```
+
+
+```{r}
+#| eval: true
 library(leaflet)
 library(tidyverse)
 library(tidycensus)
@@ -13,11 +20,6 @@ library(tigris)
 library(scales)
 library(sf)
 ```
-
-```{r}
-options(tigris_use_cache = TRUE)
-```
-
 
 ```{r}
 speak_language_other_than_english <-
@@ -34,6 +36,7 @@ speak_language_other_than_english <-
 
 
 ```{r}
+#| eval: false
 speak_language_other_than_english |>
   mapview::mapview()
 ```
@@ -79,6 +82,13 @@ speak_language_other_than_english_wgs84 <-
 ```
 
 ```{r}
+#| echo: false
+#| eval: false
+speak_language_other_than_english_wgs84 |>
+  write_sf("data/speak_language_other_than_english_wgs84.geojson")
+```
+
+```{r}
 leaflet() |>
   addTiles() |>
   addPolygons(data = speak_language_other_than_english_wgs84)
@@ -111,7 +121,7 @@ leaflet() |>
 
 ```{r}
 portland_drinking_fountains <-
-  read_sf("data/Drinking_Fountains.geojson")
+  read_sf("data/drinking_fountains.geojson"")
 ```
 
 ```{r}
@@ -166,3 +176,7 @@ leaflet() |>
 ```
 
 ### Your Turn {.your-turn}
+
+- Import the [data I've created on the number of refugees from each country in the world](https://raw.githubusercontent.com/rfortherestofus/mapping-with-r-v2/refs/heads/main/data/refugees.geojson)
+
+- Map this using {leaflet}. All countries will be the same color at this point (we'll change that in the next lesson).

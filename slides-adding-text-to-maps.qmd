@@ -100,6 +100,8 @@ languages_map
 
 ::: {.notes}
 Show this map: https://show.rfor.us/XlwwHHkF ([source](https://links.mimestream.com/g/david@rfortherestofus.com/t/194b89b5675c462b))
+
+https://flowingdata.com/2025/01/24/astoria-not-the-single-parent-capital-of-america/
 :::
 
 ### `geom_sf_text()`

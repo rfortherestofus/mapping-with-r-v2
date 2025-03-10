@@ -1,0 +1,45 @@
+---
+title: Wrapping Up Mapping with R
+---
+
+### Should This Actually Be a Map?
+
+::: {.notes}
+Show:
+
+Example of something that shouldn't be a map: https://www.ooma.com/blog/countries-around-the-world-ranked-by-average-screen-time/
+
+https://observablehq.com/@karimdouieb/try-to-impeach-this-challenge-accepted
+:::
+
+### Raster Data {.inverse}
+
+
+
+### Additional Resources {.inverse}
+
+
+
+### Learn More: is this really a map?
+
+https://socviz.co/maps.html#is-your-data-really-spatial
+
+Example of something that shouldn't be a map: https://www.ooma.com/blog/countries-around-the-world-ranked-by-average-screen-time/
+
+https://observablehq.com/@karimdouieb/try-to-impeach-this-challenge-accepted
+
+### Learn More: General resources
+
+https://scubed.netlify.app/courses/2_spatial_data_analysis/
+
+https://rspatialdata.github.io/index.html
+
+https://socviz.co/maps.html
+
+https://walker-data.com/census-r/
+
+https://www.paulamoraga.com/book-spatial/index.html
+
+https://r.geocompx.org/
+
+For example, a large number of R packages exist to obtain various socio-demographic data, such as tidycensus and tigris (USA), cancensus (Canada), eurostat and giscoR (European Union), or idbr (international databases) – read Analyzing US Census Data (K. E. Walker 2022) to find some examples of how to analyze such data. (source)

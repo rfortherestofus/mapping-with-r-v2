@@ -9,7 +9,7 @@ title: Spatial Filters
 # library(sf)
 # library(janitor)
 
-# read_sf("data/Corners_Improved.geojson") |>
+# read_sf("https://hub.arcgis.com/api/v3/datasets/2110697e9c1e42f3a87f75c310da64f1_78/downloads/data?format=geojson&spatialRefId=4326&where=1%3D1") |>
 #   clean_names() |>
 #   st_make_valid() |>
 #   select(objectid, ramp_style) |>
@@ -111,6 +111,10 @@ mapview(district_1_boundaries) +
   mapview(district_1_corners)
 ```
 
+::: {.notes}
+Focus on eastern borders (https://show.rfor.us/LkbJtNF1) because you see the difference between this predicate and st_within
+:::
+
 ---
 
 ```{r}
@@ -154,6 +158,9 @@ mapview(district_1_boundaries) +
   mapview(district_1_corners_within)
 ```
 
+### Your Turn {.your-turn}
+
+- Use the `st_filter()` function to only keep the traffic signals within the Southwest sextant
 
 
 

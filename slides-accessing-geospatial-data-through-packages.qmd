@@ -1,7 +1,6 @@
 ---
 title: Accessing Geospatial Data Through Packages
 execute: 
-  freeze: true
   eval: false
 ---
 
@@ -19,14 +18,14 @@ options(tigris_use_cache = TRUE)
 
 ### Global Data
 
-#### Boundaries are Political
-
 #### Packages
 
 - {rnaturalearth}
 - {rgeoboundaries}
 
 ::: {.notes}
+Boundaries are political
+
 Talk about how each package handles disputed territories
 :::
 
@@ -200,6 +199,11 @@ library(tidycensus)
 census_api_key("<insert your API key here>", install = TRUE)
 ```
 
+```{r}
+#| echo: false
+library(tidycensus)
+```
+
 #### Identify Variables
 
 ```{r}
@@ -211,16 +215,6 @@ acs_variables <-
   )
 ```
 
-```{r}
-library(tidyverse)
-
-median_household_income_variable <-
-  acs_variables |>
-  filter(str_detect(label, "Median household income")) |>
-  filter(geography == "county") |>
-  pull(name)
-```
-
 ---
 
 ```{r}
@@ -228,7 +222,7 @@ median_household_income <-
   get_acs(
     geography = "county",
     state = "OR",
-    variable = median_household_income_variable
+    variable = "B19013_001"
   )
 ```
 
@@ -243,7 +237,7 @@ median_household_income_sf <-
   get_acs(
     geography = "county",
     state = "OR",
-    variable = median_household_income_variable,
+    variable = "B19013_001",
     geometry = TRUE
   )
 ```
@@ -263,7 +257,7 @@ median_household_income_sf |>
 
 - Use the {rnaturalearth} or {rgeoboundaries} package to download data for all countries in South America
 - Use the {mapview} package to make a map in order to ensure the data was downloaded correctly
-- If you are in the US (or work with US data), try out downloading data using {tidycensus} TODO: Add some sample variables for them to work with
+- If you are in the US (or work with US data), try out downloading data using {tidycensus}
 
 #### Learn More
 

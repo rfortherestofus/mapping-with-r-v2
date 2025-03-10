@@ -23,7 +23,7 @@ Link to R for the Rest of Us article on curb cuts
 # library(janitor)
 
 # corners_improved <-
-#   read_sf("data/Corners_Improved.geojson") |>
+#   read_sf("data/https://hub.arcgis.com/api/v3/datasets/2110697e9c1e42f3a87f75c310da64f1_78/downloads/data?format=geojson&spatialRefId=4326&where=1%3D1") |>
 #   clean_names() |>
 #   # Turn shapes into points for simplicity
 #   st_point_on_surface() |>
@@ -53,17 +53,18 @@ improved_corners
 ---
 
 ```{r}
-# library(mapview)
+#| eval: false
+library(mapview)
 
-# improved_corners |>
-#   mapview(zcol = "ramp_style")
+improved_corners |>
+  mapview(zcol = "ramp_style")
 ```
 
 #### Import City Council Districts Data
 
 ```{r}
 city_council_districts <-
-  read_sf("data/city_council_districts.geojson")
+  read_sf("data/portland_city_council_districts.geojson")
 
 city_council_districts
 ```
@@ -220,3 +221,24 @@ improved_corners_by_district |>
     legend.key.height = unit(0.5, "cm")
   )
 ```
+
+### Your Turn {.your-turn}
+
+```{r}
+#| eval: false
+#| echo: false
+read_sf(
+  "https://hub.arcgis.com/api/v3/datasets/418ceb86c89b45a39ac0e27bc2722393_233/downloads/data?format=geojson&spatialRefId=4326&where=1%3D1"
+) |>
+  clean_names() |>
+  select(sextant) |>
+  write_sf("data/portland_sextants.geojson")
+```
+
+- Import data on Portland sextants from `https://raw.githubusercontent.com/rfortherestofus/mapping-with-r-v2/refs/heads/main/data/portland_sextants.geojson`
+
+- Join the data on traffic signals from the last lesson with the sextants data to see how many traffic signals are in each sextant
+
+### Learn More
+
+[Like MFF Michelle's question about Meijer stores](https://github.com/MichiganFitnessFoundation/mff-r-training/issues/74#issuecomment-2598274428)

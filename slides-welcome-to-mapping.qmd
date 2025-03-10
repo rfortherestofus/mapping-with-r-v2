@@ -7,11 +7,23 @@ title: Welcome to Mapping with R
 
 R is a complete GIS tool
 
-### Two types of data: vector and raster. We'll mostly cover vector.
+::: {.notes}
+Show https://raw.githubusercontent.com/rfortherestofus/mapping-with-r-v2/refs/heads/main/data/portland_traffic_signals.csv
+:::
+
+### Types of geospatial data
+
+Two types of data: vector and raster. We'll cover vector.
+
+::: {.notes}
+https://bsky.app/profile/dgkeyes.com/post/3ljq4qd3oej2v
+:::
 
 ### Make simple maps with ggplot and mapview
 
 #### Access Data
+
+---
 
 ```{r}
 library(rnaturalearth)
@@ -20,6 +32,8 @@ ne_countries()
 ```
 
 #### Make simple map with ggplot
+
+---
 
 ```{r}
 library(tidyverse)
@@ -30,6 +44,8 @@ ne_countries() |>
 ```
 
 #### Make simple map with mapview
+
+---
 
 ```{r}
 library(mapview)

@@ -20,6 +20,7 @@ execute:
   warning: false
   cache: false
   echo: true
+  freeze: auto
   
 title-slide-attributes:
   data-background-image: assets/rru-hex-bg-gradient-dark.svg

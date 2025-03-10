@@ -70,3 +70,7 @@ improved_corners_by_area |>
     legend.key.height = unit(0.5, "cm")
   )
 ```
+
+### Your Turn {.your-turn}
+
+- Combine all of the sextants to make a map that shows the Portland boundaries

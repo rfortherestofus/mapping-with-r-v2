@@ -1,7 +1,16 @@
 ---
-title: Making Dot Bubble Maps with leaflet
+title: Making Dot and Bubble Maps with {leaflet}
 ---
 
+
+
+
+```{r}
+#| echo: false
+options(tigris_use_cache = TRUE)
+```
+
+### Dot Maps
 
 ```{r}
 library(leaflet)
@@ -15,14 +24,8 @@ library(leaflegend)
 ```
 
 ```{r}
-options(tigris_use_cache = TRUE)
-```
-
-### Dot Maps
-
-```{r}
 portland_drinking_fountains <-
-  read_sf("data/Drinking_Fountains.geojson")
+  read_sf("data/drinking_fountains.geojson")
 ```
 
 ```{r}
@@ -30,6 +33,8 @@ portland_drinking_fountains |>
   st_drop_geometry() |>
   count(FOUNTAINSTYLE)
 ```
+
+### Create Color Palette
 
 ```{r}
 pal_discrete <- colorFactor(
@@ -44,13 +49,17 @@ pal_discrete <- colorFactor(
   na.color = "gray70",
   domain = fct(portland_drinking_fountains$FOUNTAINSTYLE)
 )
+```
 
+### Make Dot Map
+
+```{r}
 leaflet() |>
   addProviderTiles("CartoDB.Positron") |>
   addCircles(
     data = portland_drinking_fountains,
     stroke = FALSE,
-    fillColor = ~pal_discrete(FOUNTAINSTYLE),
+    fillColor = ~ pal_discrete(FOUNTAINSTYLE),
     radius = 10,
     fillOpacity = 1
   )
@@ -60,19 +69,22 @@ leaflet() |>
 
 ```{r}
 oregon_places <-
-  read_sf("data/oregon-places.geojson") |>
-    st_transform(crs = 4326)
-
-oregon_places |>
-  slice_max(order_by = population, n = 1)
+  read_sf("data/oregon_places.geojson") |>
+  st_transform(crs = 4326)
 ```
+
+```{r}
+oregon_places
+```
+
+---
 
 ```{r}
 leaflet() |>
   addProviderTiles("CartoDB.Positron") |>
   addCircles(
     data = oregon_places,
-    radius = ~population / 100,
+    radius = ~ population / 100,
     label = ~name,
     stroke = FALSE,
     fillOpacity = 0.5
@@ -87,3 +99,16 @@ leaflet() |>
 ```
 
 ### Your Turn {.your-turn}
+
+- Use this code to import centroids (i.e. one point in the center of each country)
+
+. . .
+
+```{r}
+refugees_country_centroids <-
+  read_sf(
+    "https://raw.githubusercontent.com/rfortherestofus/mapping-with-r-v2/refs/heads/main/data/refugees_country_centroids.geojson"
+  )
+```
+
+- Make a bubble map, with the size of each bubble relative to the size of the refugee population from that country.

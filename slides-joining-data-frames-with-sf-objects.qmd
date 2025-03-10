@@ -1,5 +1,5 @@
 ---
-title: Joining Data Frames with `sf` Objects
+title: Joining Data Frames with sf Objects
 ---
 
 ### Import CSV
@@ -8,7 +8,7 @@ title: Joining Data Frames with `sf` Objects
 library(tidyverse)
 
 city_councilors <-
-  read_csv("data/city_councilors.csv")
+  read_csv("data/portland_city_councilors.csv")
 ```
 
 ```{r}
@@ -22,7 +22,7 @@ city_councilors
 library(sf)
 
 city_council_districts <-
-  read_sf("data/city_council_districts.geojson")
+  read_sf("data/portland_city_council_districts.geojson")
 
 city_council_districts
 ```

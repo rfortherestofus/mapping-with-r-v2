@@ -30,7 +30,7 @@ library(rnaturalearth)
 
 all_countries <-
   ne_countries() |>
-    select(sovereignt)
+  select(sovereignt)
 ```
 
 . . .
@@ -71,7 +71,8 @@ all_countries |>
 #| code-line-numbers: "2"
 #| output-location: slide
 all_countries |>
-  st_transform("+proj=cea +lon_0=0 +lat_ts=45 +x_0=0 +y_0=0 +datum=WGS84 +units=m +no_defs"
+  st_transform(
+    "+proj=cea +lon_0=0 +lat_ts=45 +x_0=0 +y_0=0 +datum=WGS84 +units=m +no_defs"
   ) |>
   ggplot() +
   geom_sf()
@@ -101,7 +102,9 @@ all_countries |>
   geom_sf()
 ```
 
-### {crsuggest}
+### {crsuggest} {.inverse}
+
+---
 
 ```{r}
 #| output-location: slide
@@ -109,7 +112,7 @@ library(crsuggest)
 
 africa <-
   ne_countries(continent = "Africa") |>
-    select(sovereignt)
+  select(sovereignt)
 
 africa |>
   ggplot() +
@@ -128,7 +131,7 @@ africa |>
 ```{r}
 africa_crs <-
   africa |>
-    suggest_top_crs()
+  suggest_top_crs()
 ```
 
 . . .
@@ -153,8 +156,7 @@ africa |>
 africa |>
   ggplot() +
   geom_sf()
-``
-`
+```
 :::
 
 ::: {.column width="50%"}

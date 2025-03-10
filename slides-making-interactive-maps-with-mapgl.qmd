@@ -1,6 +1,12 @@
 ---
 title: Making Interactive Maps with {mapgl}
+eval: false
 ---
+
+::: {.notes}
+Can't render the code in these slides because can't render Mapbox in Quarto
+See https://github.com/walkerke/mapgl/issues/3
+:::
 
 ```{r}
 library(leaflet)
@@ -168,6 +174,8 @@ mapboxgl() |>
 ```
 
 ### Your Turn {.your-turn}
+
+- Turn any of the interactive refugee maps you have made into an interactive map with {mapgl}
 
 ### Learn More
 

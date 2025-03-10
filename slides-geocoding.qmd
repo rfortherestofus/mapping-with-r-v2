@@ -18,6 +18,58 @@ library(sf)
 ```{r}
 library(tidyverse)
 
+famous_places <-
+  tribble(
+    ~building,
+    ~address,
+    "White House",
+    "1600 Pennsylvania Ave NW, Washington, DC 20500 United States",
+    "Empire State Building",
+    "350 5th Ave, New York, NY 10118, USA"
+  )
+```
+
+### Geocoding a Full Address
+
+```{r}
+library(tidygeocoder)
+
+famous_places |>
+  geocode(address)
+```
+
+### Geocoding a Full Address
+
+```{r}
+famous_places_sf <-
+  famous_places |>
+  geocode(address) |>
+  st_as_sf(
+    coords = c("long", "lat"),
+    crs = 4326
+  )
+```
+
+```{r}
+famous_places_sf
+```
+
+---
+
+```{r}
+famous_places_sf |>
+  mapview::mapview()
+```
+
+### Geocoding Services {.inverse}
+
+::: {.notes}
+Show getting API key from LocationIQ
+:::
+
+---
+
+```{r}
 us_and_uk_head_residences <-
   tribble(
     ~building,
@@ -28,42 +80,6 @@ us_and_uk_head_residences <-
     "10 Downing St, London SW1A 2AA, United Kingdom"
   )
 ```
-
-### Geocoding a Full Address
-
-```{r}
-library(tidygeocoder)
-
-us_and_uk_head_residences |>
-  geocode(address)
-```
-
-### Geocoding a Full Address
-
-```{r}
-us_and_uk_head_residences_sf <-
-  us_and_uk_head_residences |>
-  geocode(address) |>
-  st_as_sf(
-    coords = c("long", "lat"),
-    crs = 4326
-  )
-```
-
-```{r}
-us_and_uk_head_residences_sf
-```
-
----
-
-```{r}
-us_and_uk_head_residences_sf |>
-  mapview::mapview()
-```
-
-### Geocoding Services {.inverse}
-
----
 
 ```{r}
 us_and_uk_head_residences |>
@@ -81,7 +97,7 @@ Both ArcGIS (https://location.arcgis.com/pricing/#geocoding) and Mapbox (https:/
 ---
 
 ```{r}
-us_and_uk_head_residences <-
+us_and_uk_head_residences_v2 <-
   tribble(
     ~building,
     ~address,
@@ -105,7 +121,7 @@ us_and_uk_head_residences <-
 ```
 
 ```{r}
-us_and_uk_head_residences |>
+us_and_uk_head_residences_v2 |>
   geocode(
     street = address,
     city = city,
@@ -123,7 +139,7 @@ Doesn't work for Number 10, which is transition to talking about `method` argume
 
 ```{r}
 #| code-line-numbers: "8"
-us_and_uk_head_residences |>
+us_and_uk_head_residences_v2 |>
   geocode(
     street = address,
     city = city,
@@ -158,6 +174,8 @@ my_address <-
 - Use the {tidygeocoder} package to geocode your address
 
 - Turn the result into an `sf` object with `st_as_sf()` and plot it on a map with `mapview::mapview()` to make sure it worked
+
+- Remember that if you want to use `method = "iq"` you'll need to sign up for a free LocationIQ account and create an API key
 
 ### Learn More
 
