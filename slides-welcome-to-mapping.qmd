@@ -8,7 +8,7 @@ title: Welcome to Mapping with R
 R is a complete GIS tool
 
 ::: {.notes}
-Show https://raw.githubusercontent.com/rfortherestofus/mapping-with-r-v2/refs/heads/main/data/portland_traffic_signals.csv
+Show https://book.rfortherestofus.com/assets/covid-map.png
 :::
 
 ### Types of geospatial data
@@ -55,3 +55,16 @@ ne_countries() |>
 ```
 
 ### How course works
+
+Topics
+- Geospatial data
+- Statamic maps
+- Interactive maps
+- Geospatial data analysis
+- Maps that require complicated analysis
+
+Each lesson
+- Video
+- Demo 
+- Your Turn
+- Learn More

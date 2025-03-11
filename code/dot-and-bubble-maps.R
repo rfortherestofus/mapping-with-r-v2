@@ -1,61 +1,38 @@
----
-title: Dot and Bubble Maps
-format:
-  rfortherestofus-slides-revealjs:
-    output-location: slide
----
-
-```{r}
-#| echo: false
 library(tidyverse)
 library(tidycensus)
 library(tigris)
 library(janitor)
 library(sf)
-```
 
-### Dot Maps
 
-::: {.notes}
-https://www.theguardian.com/world/2023/oct/25/peru-pozuzo-austria-german-town-history
+# oregon_places <-
+#   get_decennial(
+#     geography = "place",
+#     state = "OR",
+#     variables = "P1_001N",
+#     geometry = TRUE,
+#     year = 2020
+#   ) |>
+#   st_centroid() |>
+#   select(NAME, value) |>
+#   set_names("name", "population", "geometry")
+# 
+# oregon_places |>
+#   write_sf("data/oregon_places.geojson")
+# 
+# oregon <-
+#   states() |>
+#   clean_names() |>
+#   filter(name == "Oregon")
 
-https://archive.is/5YfM1
-:::
 
-```{r}
-#| eval: false
-#| echo: false
-oregon_places <-
-  get_decennial(
-    geography = "place",
-    state = "OR",
-    variables = "P1_001N",
-    geometry = TRUE,
-    year = 2020
-  ) |>
-  st_centroid() |>
-  select(NAME, value) |>
-  set_names("name", "population", "geometry")
-
-oregon_places |>
-  write_sf("data/oregon_places.geojson")
-
-oregon <-
-  states() |>
-  clean_names() |>
-  filter(name == "Oregon")
-```
-
-```{r}
 library(tidyverse)
 library(tidycensus)
 library(tigris)
 library(janitor)
 library(sf)
-```
 
-```{r}
-#| output: false
+
 oregon <-
   states() |>
   clean_names() |>
@@ -63,39 +40,17 @@ oregon <-
 
 oregon_places <-
   read_sf("data/oregon_places.geojson")
-```
 
----
 
-```{r}
-#| output-location: fragment
 oregon_places
-```
 
----
 
-```{r}
 ggplot() +
   geom_sf(data = oregon, fill = "transparent") +
   geom_sf(data = oregon_places) +
   theme_void()
-```
 
-### Bubble Maps
 
-::: {.notes}
-https://www.axios.com/2025/02/24/where-college-educated-americans-are-moving
-
-https://www.nytimes.com/2025/02/04/us/hurricane-helene-deaths.html
-
-https://bsky.app/profile/infobeautiful.bsky.social/post/3lhe447wxan2j
-
-https://www.nytimes.com/2025/02/08/world/europe/us-foreign-aid-freeze-wwk.html?smtyp=cur&smid=bsky-nytimes; https://show.rfor.us/qcd9tBSX
-
-Show OBTN population map
-:::
-
-```{r}
 ggplot() +
   geom_sf(data = oregon, fill = "transparent") +
   geom_sf(
@@ -105,21 +60,8 @@ ggplot() +
   ) +
   scale_size_continuous(range = c(1, 15)) +
   theme_void()
-```
-
-::: {.notes}
-Show guide_circles() from {legendry} for alt legend: https://teunbrand.github.io/legendry/reference/guide_circles.html?q=size#null
-:::
 
 
-### Dot Density Maps
-
-::: {.notes}
-Show: https://personal.tcu.edu/kylewalker/maps/education/#10/37.7536/-122.4473
-:::
-
-```{r}
-#| echo: false
 # acs_variables <-
 #   load_variables(
 #     year = 2023,
@@ -132,10 +74,8 @@ Show: https://personal.tcu.edu/kylewalker/maps/education/#10/37.7536/-122.4473
 #   filter(str_detect(label, "Estimate!!Total!!Population 5 years and over!!SPEAK A LANGUAGE OTHER THAN ENGLISH!!")) |>
 #   mutate(langauge = str_remove(label, "!!Total!!Population 5 years and over!!SPEAK A LANGUAGE OTHER THAN ENGLISH!!")) |>
 #   select(name, langauge, label)
-```
 
-```{r}
-#| output: false
+
 languages_spoken <-
   get_acs(
     geography = "county",
@@ -150,28 +90,18 @@ languages_spoken <-
   ) |>
   clean_names() |>
   select(variable, name, estimate)
-```
 
----
 
-```{r}
-#| output-location: fragment
 languages_spoken
-```
 
----
 
-```{r}
 ggplot() +
   geom_sf(data = languages_spoken, aes(fill = estimate)) +
   scale_fill_viridis_c() +
   facet_wrap(vars(variable)) +
   theme_void()
-```
 
----
 
-```{r}
 languages_spoken_dots <-
   languages_spoken |>
   filter(name == "Washington County, Oregon") |>
@@ -181,18 +111,11 @@ languages_spoken_dots <-
     values_per_dot = 1,
     group = "variable"
   )
-```
 
----
 
-```{r}
-#| output-location: fragment
 languages_spoken_dots
-```
 
----
 
-```{r}
 ggplot() +
   geom_sf(data = languages_spoken_dots, aes(color = variable)) +
   geom_sf(
@@ -201,11 +124,8 @@ ggplot() +
     fill = "transparent"
   ) +
   theme_void()
-```
 
----
 
-```{r}
 ggplot() +
   geom_sf(data = languages_spoken_dots, aes(color = variable)) +
   geom_sf(
@@ -215,53 +135,28 @@ ggplot() +
   ) +
   theme_void() +
   facet_wrap(vars(variable))
-```
 
-### Your Turn {.your-turn}
 
-Turn your refguees choropleth map from before into a bubble map
-
-```{r}
-#| echo: false
 read_sf(
   "https://raw.githubusercontent.com/rfortherestofus/mapping-with-r-v2/refs/heads/main/data/refugees.geojson"
 ) |>
   st_point_on_surface() |>
   write_sf("data/refugees_country_centroids.geojson")
-```
 
-. . .
 
-Import data on refugees by country with the following code:
-```{r}
 refugees_by_country <-
   read_sf(
     "https://raw.githubusercontent.com/rfortherestofus/mapping-with-r-v2/refs/heads/main/data/refugees.geojson"
   )
-```
 
-. . .
 
-Use this code to import centroids (i.e. one point in the center of each country)
-
-```{r}
 refugees_country_centroids <-
   read_sf(
     "https://raw.githubusercontent.com/rfortherestofus/mapping-with-r-v2/refs/heads/main/data/refugees_country_centroids.geojson"
   )
-```
-
-::: {.notes}
-```{r}
-#| eval: false
-ggplot() +
-  geom_sf(data = refugees_by_country) +
-  geom_sf(data = refugees_country_centroids, aes(size = number_of_refugees))
-```
-:::
 
 
-## Learn More
+# ggplot() +
+#   geom_sf(data = refugees_by_country) +
+#   geom_sf(data = refugees_country_centroids, aes(size = number_of_refugees))
 
-- Spike maps: https://www.youtube.com/watch?v=qTDf5VVnjMM 
-- also https://bsky.app/profile/higsch.com/post/3lgzm5mftyc2x
