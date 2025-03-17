@@ -4,7 +4,6 @@ library(tidyverse)
 improved_corners_by_district <-
   read_sf("data/improved_corners_by_district.geojson")
 
-
 improved_corners_by_area <-
   improved_corners_by_district |>
   mutate(
@@ -20,16 +19,6 @@ improved_corners_by_area <-
   ungroup()
 
 improved_corners_by_area
-
-
-
-# library(mapview)
-# 
-# mapview(
-#   improved_corners_by_area,
-#   zcol = "area"
-# )
-
 
 library(scales)
 

@@ -101,6 +101,7 @@ speak_language_other_than_english |>
 ::: {.notes}
 
 ```{r}
+#| eval: false
 read_sf("https://raw.githubusercontent.com/rfortherestofus/mapping-with-r-v2/refs/heads/main/data/refugees.geojson") |>
   ggplot() +
   geom_sf(aes(fill = number_of_refugees))

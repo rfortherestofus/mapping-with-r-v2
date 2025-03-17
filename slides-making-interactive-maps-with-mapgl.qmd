@@ -176,7 +176,3 @@ mapboxgl() |>
 ### Your Turn {.your-turn}
 
 - Turn any of the interactive refugee maps you have made into an interactive map with {mapgl}
-
-### Learn More
-
-- https://qfes.github.io/rdeck/

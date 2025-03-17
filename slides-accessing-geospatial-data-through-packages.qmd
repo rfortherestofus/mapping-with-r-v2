@@ -27,6 +27,10 @@ options(tigris_use_cache = TRUE)
 Boundaries are political
 
 Talk about how each package handles disputed territories
+
+https://www.naturalearthdata.com/about/disputed-boundaries-policy/
+
+https://www.andrewheiss.com/blog/2025/02/13/natural-earth-crimea/#natural-earth-de-jure-points-of-view
 :::
 
 #### {rnaturalearth}

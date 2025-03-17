@@ -4,7 +4,6 @@ library(tigris)
 library(janitor)
 library(sf)
 
-
 inflow <-
   get_flows(
     geography = "county",
@@ -19,7 +18,6 @@ inflow <-
 
 inflow
 
-
 inflow_origins <-
   inflow |>
   st_drop_geometry() |>
@@ -27,7 +25,6 @@ inflow_origins <-
   select(geoid2, full2_name, estimate)
 
 inflow_origins
-
 
 inflow_origins_centroid <-
   inflow |>
@@ -40,7 +37,6 @@ inflow_origins_centroid <-
 
 inflow_origins_centroid
 
-
 inflow_destination_centroid <-
   inflow |>
   select(geoid1, full1_name, estimate) |>
@@ -50,7 +46,6 @@ inflow_destination_centroid <-
 
 inflow_destination_centroid
 
-
 inflow_x_y <-
   inflow |>
   select(estimate) |>
@@ -59,7 +54,6 @@ inflow_x_y <-
   bind_cols(inflow_destination_centroid)
 
 inflow_x_y
-
 
 origin_states <-
   inflow_origins |>
@@ -74,7 +68,6 @@ origin_states <-
 
 origin_states
 
-
 origin_states_sf <-
   states(progress_bar = FALSE) |>
   clean_names() |>
@@ -82,7 +75,6 @@ origin_states_sf <-
   filter(name %in% origin_states)
 
 origin_states_sf
-
 
 ggplot() +
   geom_sf(data = origin_states_sf, fill = "transparent") +
@@ -109,15 +101,8 @@ ggplot() +
   scale_linewidth_continuous(range = c(0.5, 2)) +
   theme_void()
 
-
-# library(sf)
-#
-# asylum_seekers <-
-#   read_sf(
-#     "https://raw.githubusercontent.com/rfortherestofus/mapping-with-r-v2/refs/heads/main/data/asylum_seekers.geojson"
-#   )
-
 countries <-
   read_sf(
     "https://raw.githubusercontent.com/rfortherestofus/mapping-with-r-v2/refs/heads/main/data/countries.geojson"
   )
+

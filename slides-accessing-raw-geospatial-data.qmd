@@ -48,12 +48,6 @@ read_sf("data/Portland_City_Council_Districts.shp")
 
 [![](assets/shapefile-airplane-meme.jpg)](https://www.reddit.com/r/gis/comments/sbp8r9/please_find_the_shapefile_attached/)
 
----
-
-```{r}
-read_sf("data/Portland_City_Council_Districts.shp")
-```
-
 
 ### Geospatial Data Formats: GeoJSON {.inverse}
 
@@ -83,6 +77,7 @@ read_sf("data/portland_city_council_districts.geojson")
 ### Your Turn {.your-turn}
 
 ```{r}
+#| echo: false
 # library(fs)
 # library(zip)
 
@@ -92,12 +87,18 @@ read_sf("data/portland_city_council_districts.geojson")
 # )
 ```
 
-- [Download data (ESRI Shapefile or GeoJSON) on Portland sextants](https://github.com/rfortherestofus/mapping-with-r-v2/raw/refs/heads/main/data/portland_sextants.zip) ([source](https://gis-pdx.opendata.arcgis.com/datasets/PDX::portland-administrative-sextants/explore?location=45.544781%2C-122.667200%2C11.81))
+- Download data in [ESRI Shapefile](https://github.com/rfortherestofus/mapping-with-r-v2/raw/refs/heads/main/data/portland_sextants.zip) or [GeoJSON format](https://github.com/rfortherestofus/mapping-with-r-v2/raw/refs/heads/main/data/portland_sextants.geojson) on Portland sextants
 
-- Import the data in R using the `read_sf()` function from the `sf` package and save it as `portland_sextants`
+- Import the data in R using the `read_sf()` function from the `sf` package
 
-- Examine `portland_sextants`, making sure you can identify its geometry type, dimensions, bounding box, coordinate reference system and `geometry` column
+- Examine your data, making sure you can identify its geometry type, dimensions, bounding box, coordinate reference system and `geometry` column
+
+::: {.notes}
+https://gis-pdx.opendata.arcgis.com/datasets/PDX::portland-administrative-sextants/explore?location=45.544781%2C-122.667200%2C11.81
+:::
 
 ### Learn More
 
 https://r-spatial.github.io/sf/articles/sf2.html
+
+https://r.geocompx.org/read-write.html

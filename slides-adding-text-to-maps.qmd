@@ -32,10 +32,6 @@ languages_map <-
       color = pct
     )
   ) +
-  guides(
-    fill = guide_colorsteps(show.limits = TRUE),
-    color = guide_colorsteps(show.limits = TRUE),
-  ) +
   scale_fill_viridis_c(
     limits = c(0, 1),
     labels = percent_format()
@@ -197,9 +193,11 @@ languages_map +
 
 ### Your Turn {.your-turn}
 
-Improve the map you made in the last lesson on the number of refugees from each country in the world by:
+. . .
 
-1. Calculating the three top countries refugee-sending countries
+Improve the map you made in the choropleth map lesson on the number of refugees from each country in the world by:
+
+1. Calculating the top three refugee-sending countries
 1. Adding text to the map to highlight these countries
 
 ### Learn More

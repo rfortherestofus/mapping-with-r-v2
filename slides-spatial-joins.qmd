@@ -235,7 +235,31 @@ read_sf(
   write_sf("data/portland_sextants.geojson")
 ```
 
-- Import data on Portland sextants from `https://raw.githubusercontent.com/rfortherestofus/mapping-with-r-v2/refs/heads/main/data/portland_sextants.geojson`
+- Import data on Portland sextants using this code:
+
+```{r}
+#| eval: false
+library(sf)
+
+portland_sextants <-
+  read_sf(
+    "https://raw.githubusercontent.com/rfortherestofus/mapping-with-r-v2/refs/heads/main/data/portland_sextants.geojson"
+  )
+```
+
+### Your Turn {.your-turn}
+
+- Import data on Portland traffic signals using this code:
+
+```{r}
+#| eval: false
+portland_traffic_signals <-
+  read_sf(
+    "https://raw.githubusercontent.com/rfortherestofus/mapping-with-r-v2/refs/heads/main/data/portland_traffic_signals.geojson"
+  )
+```
+
+### Your Turn {.your-turn}
 
 - Join the data on traffic signals from the last lesson with the sextants data to see how many traffic signals are in each sextant
 

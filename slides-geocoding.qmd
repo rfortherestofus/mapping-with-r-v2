@@ -79,9 +79,22 @@ us_and_uk_head_residences <-
     "Number 10",
     "10 Downing St, London SW1A 2AA, United Kingdom"
   )
+
+us_and_uk_head_residences
 ```
 
+---
+
 ```{r}
+us_and_uk_head_residences |>
+  geocode(address)
+```
+
+---
+
+
+```{r}
+#| code-line-numbers: "4"
 us_and_uk_head_residences |>
   geocode(
     address,
@@ -119,6 +132,8 @@ us_and_uk_head_residences_v2 <-
     "United Kingdom"
   )
 ```
+
+---
 
 ```{r}
 us_and_uk_head_residences_v2 |>

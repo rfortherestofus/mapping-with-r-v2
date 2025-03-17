@@ -1,5 +1,5 @@
 ---
-title: Making Interactive Maps with Leaflet
+title: Making Interactive Maps with {leaflet}
 output-location: slide
 ---
 
@@ -121,7 +121,7 @@ leaflet() |>
 
 ```{r}
 portland_drinking_fountains <-
-  read_sf("data/drinking_fountains.geojson"")
+  read_sf("data/portland_drinking_fountains.geojson")
 ```
 
 ```{r}

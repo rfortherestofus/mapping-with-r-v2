@@ -13,6 +13,7 @@ library(sf)
 #| echo: false
 
 # https://www.portlandmaps.com/metadata/index.cfm?&action=DisplayLayer&LayerID=52777
+# https://gis-pdx.opendata.arcgis.com/search?q=corners
 library(janitor)
 
 portland_corners <-
@@ -28,7 +29,7 @@ portland_corners |>
   st_coordinates() |>
   as_tibble() |>
   rename(longitude = X, latitude = Y) |>
-  write_csv("data/portland-corners.csv")
+  write_csv("data/portland_corners.csv")
 ```
 
 ### `st_as_sf()`

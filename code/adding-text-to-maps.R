@@ -25,10 +25,6 @@ languages_map <-
       color = pct
     )
   ) +
-  guides(
-    fill = guide_colorsteps(show.limits = TRUE),
-    color = guide_colorsteps(show.limits = TRUE),
-  ) +
   scale_fill_viridis_c(
     limits = c(0, 1),
     labels = percent_format()
@@ -58,30 +54,23 @@ languages_map <-
     )
   )
 
-
 oregon_counties <-
   counties(state = "OR") |>
   clean_names()
 
-
 oregon_counties
-
 
 oregon_counties |>
   ggplot() +
   geom_sf() +
   geom_sf_text(aes(label = name))
 
-
 languages_map
-
 
 speak_language_other_than_english
 
-
 languages_map +
   geom_sf_text(aes(label = name))
-
 
 library(sf)
 
@@ -93,16 +82,13 @@ top_counties <-
   mutate(map_label = str_glue("{county} ({percent(pct, accuracy = 1)})")) |>
   st_as_sf()
 
-
 top_counties
-
 
 languages_map +
   geom_sf_text(
     data = top_counties,
     aes(label = map_label)
   )
-
 
 library(ggrepel)
 
@@ -115,7 +101,6 @@ languages_map +
     ),
     stat = "sf_coordinates"
   )
-
 
 languages_map +
   geom_text_repel(

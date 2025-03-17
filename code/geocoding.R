@@ -1,6 +1,5 @@
 library(sf)
 
-
 library(tidyverse)
 
 famous_places <-
@@ -13,12 +12,10 @@ famous_places <-
     "350 5th Ave, New York, NY 10118, USA"
   )
 
-
 library(tidygeocoder)
 
 famous_places |>
   geocode(address)
-
 
 famous_places_sf <-
   famous_places |>
@@ -28,13 +25,10 @@ famous_places_sf <-
     crs = 4326
   )
 
-
 famous_places_sf
-
 
 famous_places_sf |>
   mapview::mapview()
-
 
 us_and_uk_head_residences <-
   tribble(
@@ -46,13 +40,16 @@ us_and_uk_head_residences <-
     "10 Downing St, London SW1A 2AA, United Kingdom"
   )
 
+us_and_uk_head_residences
+
+us_and_uk_head_residences |>
+  geocode(address)
 
 us_and_uk_head_residences |>
   geocode(
     address,
     method = "iq"
   )
-
 
 us_and_uk_head_residences_v2 <-
   tribble(
@@ -76,7 +73,6 @@ us_and_uk_head_residences_v2 <-
     "United Kingdom"
   )
 
-
 us_and_uk_head_residences_v2 |>
   geocode(
     street = address,
@@ -85,7 +81,6 @@ us_and_uk_head_residences_v2 |>
     postalcode = postal_code,
     country = country
   )
-
 
 us_and_uk_head_residences_v2 |>
   geocode(
@@ -96,14 +91,4 @@ us_and_uk_head_residences_v2 |>
     country = country,
     method = "iq"
   )
-
-
-
-# library(tidyverse)
-# 
-# my_address <-
-#   tribble(
-#     ~address,
-#     "Your address goes here"
-#   )
 

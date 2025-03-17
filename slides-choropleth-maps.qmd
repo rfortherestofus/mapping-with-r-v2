@@ -1,5 +1,5 @@
 ---
-title: Choropleth Maps
+title: Making Choropleth Maps with ggplot
 output-location: slide
 ---
 
@@ -65,32 +65,6 @@ Alternative approach: https://www.andrewheiss.com/blog/2025/02/19/ggplot-histogr
 
 ### Adjust Legend
 
-#### Use `guide_colorsteps`
-
-```{r}
-#| code-line-numbers: "11,12"
-speak_language_other_than_english |>
-  shift_geometry() |>
-  ggplot() +
-  geom_sf(
-    aes(
-      fill = pct,
-      color = pct
-    )
-  ) +
-  guides(
-    fill = guide_colorsteps(show.limits = TRUE),
-    color = guide_colorsteps(show.limits = TRUE),
-  ) +
-  scale_fill_viridis_c(limits = c(0, 1)) +
-  scale_color_viridis_c(limits = c(0, 1)) +
-  labs(
-    color = NULL,
-    fill = NULL
-  ) +
-  theme_void()
-```
-
 #### Adjust legend width and height
 
 ```{r}
@@ -103,10 +77,6 @@ speak_language_other_than_english |>
       fill = pct,
       color = pct
     )
-  ) +
-  guides(
-    fill = guide_colorsteps(show.limits = TRUE),
-    color = guide_colorsteps(show.limits = TRUE),
   ) +
   scale_fill_viridis_c(limits = c(0, 1)) +
   scale_color_viridis_c(limits = c(0, 1)) +
@@ -137,10 +107,6 @@ speak_language_other_than_english |>
       fill = pct,
       color = pct
     )
-  ) +
-  guides(
-    fill = guide_colorsteps(show.limits = TRUE),
-    color = guide_colorsteps(show.limits = TRUE),
   ) +
   scale_fill_viridis_c(
     limits = c(0, 1),
@@ -177,9 +143,8 @@ speak_language_other_than_english |>
 Improve the map you made in the last lesson on the number of refugees from each country in the world by:
 
 1. Using a different fill and color scale
-1. Improving the legend by using colorsteps
 1. Improving the legend by adjusting its width and height
-1. Improving the legend by making nicely formatted values (`scales::comma_format()` is your friend here)
+1. Improving the legend by making nicely formatted values (`scales::comma_format()` is your friend)
 
 ### Learn More
 

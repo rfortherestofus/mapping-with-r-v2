@@ -1,24 +1,14 @@
-options(tigris_use_cache = TRUE)
-
-
-library(leaflet)
-library(tidyverse)
-library(tidycensus)
-library(janitor)
-library(tigris)
-library(scales)
 library(sf)
+library(tidyverse)
+library(leaflet)
 library(leaflegend)
 
-
 portland_drinking_fountains <-
-  read_sf("data/drinking_fountains.geojson")
-
+  read_sf("data/portland_drinking_fountains.geojson")
 
 portland_drinking_fountains |>
   st_drop_geometry() |>
   count(FOUNTAINSTYLE)
-
 
 pal_discrete <- colorFactor(
   palette = c(
@@ -33,7 +23,6 @@ pal_discrete <- colorFactor(
   domain = fct(portland_drinking_fountains$FOUNTAINSTYLE)
 )
 
-
 leaflet() |>
   addProviderTiles("CartoDB.Positron") |>
   addCircles(
@@ -44,14 +33,11 @@ leaflet() |>
     fillOpacity = 1
   )
 
-
 oregon_places <-
   read_sf("data/oregon_places.geojson") |>
   st_transform(crs = 4326)
 
-
 oregon_places
-
 
 leaflet() |>
   addProviderTiles("CartoDB.Positron") |>
@@ -69,7 +55,6 @@ leaflet() |>
     opacity = .5,
     breaks = 10
   )
-
 
 refugees_country_centroids <-
   read_sf(

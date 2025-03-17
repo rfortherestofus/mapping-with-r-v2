@@ -156,7 +156,8 @@ africa |>
 africa |>
   ggplot() +
   geom_sf()
-```
+``
+`
 :::
 
 ::: {.column width="50%"}
@@ -224,7 +225,7 @@ continental_us_states |>
 
 ### Your Turn {.your-turn}
 
-- Improve the map you made in the last lesson on the number of refugees from each country in the world by using the `crssuggest` package to find the best projection for the data.
+- Improve the map you made in the last lesson on the number of refugees from each country in the world by using the `crsuggest` package to find the best projection for the data.
 
 - Once you've done this, redo your map with this projection.
 

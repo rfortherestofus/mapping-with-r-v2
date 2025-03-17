@@ -3,7 +3,6 @@ library(tidycensus)
 library(janitor)
 library(tigris)
 
-
 speak_language_other_than_english <-
   get_acs(
     geography = "county",
@@ -15,7 +14,6 @@ speak_language_other_than_english <-
   mutate(pct = estimate / summary_est) |>
   select(name, pct)
 
-
 speak_language_other_than_english |>
   shift_geometry() |>
   ggplot() +
@@ -23,7 +21,6 @@ speak_language_other_than_english |>
   theme_void() +
   scale_fill_viridis_c()
 
-
 speak_language_other_than_english |>
   shift_geometry() |>
   ggplot() +
@@ -37,7 +34,6 @@ speak_language_other_than_english |>
   scale_color_viridis_c(limits = c(0, 1)) +
   theme_void()
 
-
 speak_language_other_than_english |>
   shift_geometry() |>
   ggplot() +
@@ -46,32 +42,6 @@ speak_language_other_than_english |>
       fill = pct,
       color = pct
     )
-  ) +
-  guides(
-    fill = guide_colorsteps(show.limits = TRUE),
-    color = guide_colorsteps(show.limits = TRUE),
-  ) +
-  scale_fill_viridis_c(limits = c(0, 1)) +
-  scale_color_viridis_c(limits = c(0, 1)) +
-  labs(
-    color = NULL,
-    fill = NULL
-  ) +
-  theme_void()
-
-
-speak_language_other_than_english |>
-  shift_geometry() |>
-  ggplot() +
-  geom_sf(
-    aes(
-      fill = pct,
-      color = pct
-    )
-  ) +
-  guides(
-    fill = guide_colorsteps(show.limits = TRUE),
-    color = guide_colorsteps(show.limits = TRUE),
   ) +
   scale_fill_viridis_c(limits = c(0, 1)) +
   scale_color_viridis_c(limits = c(0, 1)) +
@@ -86,7 +56,6 @@ speak_language_other_than_english |>
     legend.key.height = unit(0.5, "cm")
   )
 
-
 library(scales)
 
 speak_language_other_than_english |>
@@ -97,10 +66,6 @@ speak_language_other_than_english |>
       fill = pct,
       color = pct
     )
-  ) +
-  guides(
-    fill = guide_colorsteps(show.limits = TRUE),
-    color = guide_colorsteps(show.limits = TRUE),
   ) +
   scale_fill_viridis_c(
     limits = c(0, 1),

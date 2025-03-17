@@ -84,3 +84,68 @@ right_join(
 
 
 ### Your Turn {.your-turn}
+
+```{r}
+#| eval: false
+#| echo: false
+
+library(tidyverse)
+library(sf)
+library(janitor)
+
+read_csv(
+  "https://hub.arcgis.com/api/v3/datasets/437a2765164d4f01b23d463e0e2135a1_54/downloads/data?format=csv&spatialRefId=3857&where=1%3D1"
+) |>
+  clean_names()
+
+traffic_signals <-
+  read_sf(
+    "https://hub.arcgis.com/api/v3/datasets/437a2765164d4f01b23d463e0e2135a1_54/downloads/data?format=geojson&spatialRefId=4326&where=1%3D1"
+  ) |>
+  clean_names()
+
+traffic_signals |>
+  st_drop_geometry() |>
+  select(objectid, power_supplier) |>
+  write_csv("data/portland_traffic_signals_power_supplier.csv")
+
+traffic_signals |>
+  select(objectid) |>
+  write_sf("data/portland_traffic_signals.geojson")
+```
+
+- Import geospatial data on Portland traffic signals using the following code:
+
+. . .
+
+```{r}
+#| eval: false
+library(sf)
+
+portland_traffic_signals <-
+  read_sf(
+    "https://raw.githubusercontent.com/rfortherestofus/mapping-with-r-v2/refs/heads/main/data/portland_traffic_signals.geojson"
+  )
+```
+
+### Your Turn {.your-turn}
+
+- Import data on the power supplier of Portland traffic signals in a CSV file using the following code:
+
+. . .
+
+```{r}
+#| eval: false
+library(tidyverse)
+
+portland_traffic_signals_power_supplier <-
+  read_csv(
+    "https://raw.githubusercontent.com/rfortherestofus/mapping-with-r-v2/refs/heads/main/data/portland_traffic_signals_power_supplier.csv"
+  )
+```
+
+### Your Turn {.your-turn}
+
+- Join the `portland_traffic_signals` and `portland_traffic_signals_power_supplier` objects
+
+- Try making a map with different power suppliers in different colors to ensure that your join worked

@@ -1,18 +1,9 @@
 ---
-title: Dot and Bubble Maps
+title: Making Dot and Bubble Maps with ggplot
 format:
   rfortherestofus-slides-revealjs:
     output-location: slide
 ---
-
-```{r}
-#| echo: false
-library(tidyverse)
-library(tidycensus)
-library(tigris)
-library(janitor)
-library(sf)
-```
 
 ### Dot Maps
 
@@ -20,6 +11,8 @@ library(sf)
 https://www.theguardian.com/world/2023/oct/25/peru-pozuzo-austria-german-town-history
 
 https://archive.is/5YfM1
+
+https://brilliantmaps.com/lighthouses-gb-ire/
 :::
 
 ```{r}
@@ -91,6 +84,8 @@ https://www.nytimes.com/2025/02/04/us/hurricane-helene-deaths.html
 https://bsky.app/profile/infobeautiful.bsky.social/post/3lhe447wxan2j
 
 https://www.nytimes.com/2025/02/08/world/europe/us-foreign-aid-freeze-wwk.html?smtyp=cur&smid=bsky-nytimes; https://show.rfor.us/qcd9tBSX
+
+https://www.nytimes.com/interactive/2025/health/measles-outbreak-map.html
 
 Show OBTN population map
 :::

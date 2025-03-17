@@ -6,10 +6,8 @@ library(tigris)
 library(scales)
 library(sf)
 
-
 speak_language_other_than_english_wgs84 <-
   read_sf("data/speak_language_other_than_english_wgs84.geojson")
-
 
 leaflet() |>
   addProviderTiles("CartoDB.Positron") |>
@@ -17,7 +15,6 @@ leaflet() |>
     data = speak_language_other_than_english_wgs84,
     weight = 1
   )
-
 
 leaflet() |>
   addProviderTiles("CartoDB.Positron") |>
@@ -27,7 +24,6 @@ leaflet() |>
     label = ~name
   )
 
-
 leaflet() |>
   addProviderTiles("CartoDB.Positron") |>
   addPolygons(
@@ -35,7 +31,6 @@ leaflet() |>
     weight = 1,
     popup = ~name
   )
-
 
 speak_language_other_than_english_wgs84_with_labels <-
   speak_language_other_than_english_wgs84 |>
@@ -45,7 +40,6 @@ speak_language_other_than_english_wgs84_with_labels <-
     )
   )
 
-
 leaflet() |>
   addProviderTiles("CartoDB.Positron") |>
   addPolygons(
@@ -53,10 +47,4 @@ leaflet() |>
     weight = 1,
     popup = ~text_label
   )
-
-
-
-# speak_language_other_than_english_wgs84_with_labels |>
-#   select(name, pct, text_label) |>
-#   write_sf("data/speak_language_other_than_english_wgs84_with_labels.geojson")
 

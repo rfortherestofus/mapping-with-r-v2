@@ -2,15 +2,23 @@
 title: Simple Features Data
 ---
 
+```{r}
+#| echo: false
+options(pillar.sigfig = 7)
+```
+
+
 ### Always use sf data
 
 ![](assets/always-use-sf-heiss.png)
 
 [source](https://datavizs22.classes.andrewheiss.com/slides/12-slides.pdf)
 
-### Geometry Type
+### Geometry Type {.inverse}
 
 #### `POLYGON`
+
+. . .
 
 ```{r}
 library(sf)
@@ -31,6 +39,8 @@ ggplot() +
 
 #### `POINT`
 
+. . .
+
 ```{r}
 wyoming_one_ev_station <-
   read_sf("data/wyoming-one-ev-station.geojson")
@@ -48,6 +58,8 @@ ggplot() +
 
 #### `LINESTRING`
 
+. . .
+
 ```{r}
 wyoming_highway_30 <-
   read_sf("data/wyoming-highway-30.geojson")
@@ -64,6 +76,8 @@ ggplot() +
 ```
 
 #### `MULTIPOLYGON`
+
+. . .
 
 ```{r}
 #| echo: false
@@ -93,6 +107,8 @@ ggplot() +
 
 #### `MULTIPOINT`
 
+. . .
+
 ```{r}
 wyoming_all_ev_stations <-
   read_sf("data/wyoming-all-ev-stations.geojson")
@@ -110,6 +126,8 @@ ggplot() +
 
 #### `MULTILINESTRING`
 
+. . .
+
 ```{r}
 wyoming_roads <-
   read_sf("data/wyoming-roads.geojson")
@@ -125,7 +143,9 @@ ggplot() +
   geom_sf(data = wyoming_roads)
 ```
 
-### Dimensions
+### Dimensions {.inverse}
+
+---
 
 ```{r}
 wyoming
@@ -141,7 +161,9 @@ M: "an M coordinate (rarely used), denoting some measure that is associated with
 https://r-spatial.github.io/sf/articles/sf1.html#dimensions
 :::
 
-### Bounding Box
+### Bounding Box {.inverse}
+
+---
 
 ```{r}
 rhode_island
@@ -322,7 +344,7 @@ africa <-
 
 - Examine your object, ensuring you can identify its geometry type, dimensions, bounding box, coordinate reference system and `geometry` column.
 
-- If you want to try making a static with the `geom_sf()` function from ggplot and/or an interactive map with the `mapview()` function from the {mapview} package.
+- If you want to, try making a static map with the `geom_sf()` function from ggplot and/or an interactive map with the `mapview()` function from the {mapview} package.
 
 ### Learn More
 
