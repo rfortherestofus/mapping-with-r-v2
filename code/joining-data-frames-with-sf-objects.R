@@ -35,7 +35,8 @@ left_join(
   city_council_districts,
   join_by(district)
 ) |>
-  st_as_sf()
+  st_as_sf() |>
+  mapview()
 
 right_join(
   city_councilors,

@@ -1,5 +1,5 @@
 ---
-title: Comining Multiple Geometries
+title: Combining Multiple Geometries
 ---
 
 ```{r}

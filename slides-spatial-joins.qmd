@@ -237,6 +237,8 @@ read_sf(
 
 - Import data on Portland sextants using this code:
 
+. . .
+
 ```{r}
 #| eval: false
 library(sf)
@@ -251,6 +253,8 @@ portland_sextants <-
 
 - Import data on Portland traffic signals using this code:
 
+. . .
+
 ```{r}
 #| eval: false
 portland_traffic_signals <-
@@ -261,7 +265,7 @@ portland_traffic_signals <-
 
 ### Your Turn {.your-turn}
 
-- Join the data on traffic signals from the last lesson with the sextants data to see how many traffic signals are in each sextant
+- Join the data on traffic signals with the sextants data to see how many traffic signals are in each sextant
 
 ### Learn More
 

@@ -8,7 +8,7 @@ improved_corners <-
 improved_corners
 
 city_council_districts <-
-  read_sf("data/city_council_districts.geojson")
+  read_sf("data/portland_city_council_districts.geojson")
 
 city_council_districts
 

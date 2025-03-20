@@ -3,7 +3,7 @@ title: Heatmaps
 ---
 
 ::: {.notes}
-Example: https://docs.mapbox.com/mapbox-gl-js/example/heatmap-layer/
+Example: https://docs.mapbox.com/mapbox-gl-js/exafmple/heatmap-layer/
 :::
 
 ### Load Data
