@@ -7,18 +7,42 @@ title: Wrapping Up Mapping with R
 ::: {.notes}
 Show:
 
-Example of something that shouldn't be a map: https://www.ooma.com/blog/countries-around-the-world-ranked-by-average-screen-time/
+https://www.reddit.com/r/memes/comments/ecw46g/try_to_impeach_this/#lightbox
 
 https://observablehq.com/@karimdouieb/try-to-impeach-this-challenge-accepted
+
+https://socviz.co/maps.html#is-your-data-really-spatial
+
+Try statebins (US) or geofacets (anywhere); https://hafen.github.io/geofacet/ https://www.axios.com/2025/03/10/covid-home-prices-trends
+
+Example of something that shouldn't be a map: https://www.ooma.com/blog/countries-around-the-world-ranked-by-average-screen-time/
 :::
 
 ### Raster Data {.inverse}
 
+- Made up of grids
 
+- Cells or Pixels: Each cell contains a value representing information like color, temperature, elevation, etc.
+
+- Used for elevation, weather data etc
+
+https://r.geocompx.org/spatial-class.html#raster-data
+
+https://www.paulamoraga.com/book-spatial/the-terra-package-for-raster-and-vector-data.html
+
+### Testimonial {.inverse}
 
 ### Additional Resources {.inverse}
 
+https://socviz.co/maps.html
 
+https://walker-data.com/census-r/
+
+https://rspatialdata.github.io/index.html
+
+https://www.paulamoraga.com/book-spatial/index.html
+
+https://r.geocompx.org/
 
 ### Learn More: is this really a map?
 
@@ -28,20 +52,16 @@ Example of something that shouldn't be a map: https://www.ooma.com/blog/countrie
 
 https://observablehq.com/@karimdouieb/try-to-impeach-this-challenge-accepted
 
-Try geofacets; https://www.axios.com/2025/03/10/covid-home-prices-trends
+Try statebins or geofacets; https://hafen.github.io/geofacet/ https://www.axios.com/2025/03/10/covid-home-prices-trends
 
 ### Learn More: General resources
-
-https://scubed.netlify.app/courses/2_spatial_data_analysis/
-
-https://rspatialdata.github.io/index.html
 
 https://socviz.co/maps.html
 
 https://walker-data.com/census-r/
 
+https://rspatialdata.github.io/index.html
+
 https://www.paulamoraga.com/book-spatial/index.html
 
 https://r.geocompx.org/
-
-For example, a large number of R packages exist to obtain various socio-demographic data, such as tidycensus and tigris (USA), cancensus (Canada), eurostat and giscoR (European Union), or idbr (international databases) – read Analyzing US Census Data (K. E. Walker 2022) to find some examples of how to analyze such data. (source)

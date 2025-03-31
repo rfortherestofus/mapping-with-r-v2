@@ -320,7 +320,8 @@ library(sf)
 ne_countries(continent = "Africa") |>
   select(admin) |>
   arrange(admin) |>
-  write_rds("data/africa.rds")
+  rename(country = admin) |> 
+  write_sf("data/africa.geojson")
 ```
 
 
