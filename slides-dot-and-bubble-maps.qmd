@@ -219,13 +219,14 @@ Turn your refguees choropleth map from before into a bubble map
 ```{r}
 #| echo: false
 library(sf)
+library(tidyverse)
 
 sf_use_s2(FALSE)
 
 read_sf(
   "https://raw.githubusercontent.com/rfortherestofus/mapping-with-r-v2/refs/heads/main/data/refugees.geojson"
 ) |>
-  st_make_valid() |> 
+  filter(!st_is_empty(geometry)) |> 
   st_centroid() |>
   write_sf("data/refugees_country_centroids.geojson")
 ```
