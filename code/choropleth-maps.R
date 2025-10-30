@@ -96,3 +96,10 @@ speak_language_other_than_english |>
     )
   )
 
+ggsave(
+  filename = "/users/davidkeyes/Downloads/languages-map.png",
+  width = 1920,
+  height = 1280,
+  unit = "px",
+  bg = "white"
+)

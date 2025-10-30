@@ -84,4 +84,3 @@ mapboxgl() |>
     zoom = 16,
     pitch = 25
   )
-

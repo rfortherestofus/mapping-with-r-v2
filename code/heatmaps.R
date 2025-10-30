@@ -56,10 +56,12 @@ unimproved_corners_grid_pct <-
     names_from = ramp_style,
     values_from = pct
   ) |>
-  mutate(pct = case_when(
-    is.na(Unimproved) & Improved == 1 ~ 0,
-    .default = Unimproved
-  )) |>
+  mutate(
+    pct = case_when(
+      is.na(Unimproved) & Improved == 1 ~ 0,
+      .default = Unimproved
+    )
+  ) |>
   select(grid_id, pct) |>
   left_join(
     portland_grid_map,
@@ -105,3 +107,13 @@ ggplot() +
     legend.key.height = unit(0.5, "cm"),
     legend.position = "top"
   )
+
+ggsave(
+  filename = "/users/davidkeyes/Downloads/heatmap.png",
+  width = 1920,
+  height = 1280,
+  unit = "px",
+  bg = "white"
+)
+
+beepr::beep()

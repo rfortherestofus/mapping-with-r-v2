@@ -1,0 +1,16 @@
+---
+title: Fly To Example
+---
+
+
+
+```{r}
+library(mapgl)
+
+mapboxgl() |>
+  fly_to(
+    center = c(2.1228412549747344, 41.3812461533571),
+    zoom = 16,
+    pitch = 25
+  )
+```
